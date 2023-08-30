@@ -7,6 +7,7 @@ const File = require("../models/File");
 const path = require("path");
 const archiver = require("archiver");
 const PathUtils = require("../utils/Path.ustils");
+const getExtensionType = require("../utils/getExtensionType.utils");
 class FileController {
   async createDir(req, res) {
     try {
@@ -231,51 +232,56 @@ class FileController {
   async getPreview(req, res) {
     try {
       const fileId = req.query.id;
-      const resize = req.query?.resize;
+      const resize = req.query.resize === "true" ? true : false;
+      const userId = req.user.id;
       const file = await File.findOne({ _id: fileId, user: req.user.id });
-      const supportedImg = config.get("supportedImageExtensions");
-      const supportedAudio = config.get("supportedAudioExtensions");
-      const supportedVideo = config.get("supportedVideoExtensions");
-
       if (!file) {
         return res.status(404).json({ message: "File not found" });
       }
 
-      const filePath = fileService.getPath(file);
-      const fileExtension = path.extname(file.name).toLowerCase();
-      console.log(supportedAudio.includes(fileExtension));
+      const filePath = PathUtils.getFilePath(userId, file.path);
+      const previewType = getExtensionType(file.type);
 
-      if (supportedImg.includes(fileExtension)) {
-        const previewImage = await fileProcessor.processImage(filePath, {
-          resize: resize,
-        });
-        res.set("Content-Type", "image/jpeg");
-        return res.send(previewImage);
-      } else if (supportedAudio.includes(fileExtension)) {
-        const audioBuffer = fileProcessor.processAudio(filePath);
-        res.set("Content-Type", "audio/mpeg");
-        res.set("Content-Disposition", `attachment; filename="${file.name}"`);
-        return res.send(audioBuffer);
-      } else if (supportedVideo.includes(fileExtension)) {
-        let preview;
-        res.set("Content-Type", "video/mp4");
-        preview = await fileProcessor.processVideo(filePath, resize === "true");
-        const videoStream = fs.createReadStream(preview);
-        await videoStream.pipe(res);
+      switch (previewType) {
+        case "image": {
+          const previewImage = await fileProcessor.processImage(
+            filePath,
+            resize
+          );
+          res.set("Content-Type", "image/jpeg");
+          return res.send(previewImage);
+        }
+        case "audio": {
+          const audioBuffer = fileProcessor.processAudio(filePath);
+          res.set("Content-Type", "audio/mpeg");
+          res.set("Content-Disposition", `attachment; filename="${file.name}"`);
+          return res.send(audioBuffer);
+        }
+        case "video": {
+          let preview;
+          let bufferPath = PathUtils.getBufferFilePath();
+          res.set("Content-Type", "video/mp4");
 
-        videoStream.on("end", async () => {
-          fs.unlink(preview, (err) => {
-            if (err) {
-              console.error("Помилка при видаленні файлу:", err);
-            }
+          preview = await fileProcessor.processVideo(filePath, bufferPath);
+          const videoStream = fs.createReadStream(preview);
+          await videoStream.pipe(res);
+          videoStream.on("end", async () => {
+            fs.unlink(bufferPath, (err) => {
+              if (err) {
+                console.error("Помилка при видаленні файлу:", err);
+              }
+            });
           });
-        });
-      } else {
-        res.status(200).json(file);
+          break;
+        }
+        default: {
+          res.status(200).json(file);
+          break;
+        }
       }
     } catch (e) {
       console.log(e);
-      return res.status(500).json({ message: "Server error" });
+      return res.status(500).json({ message: e });
     }
   }
 

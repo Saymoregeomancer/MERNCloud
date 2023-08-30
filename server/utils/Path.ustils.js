@@ -1,10 +1,16 @@
-const fs = require("fs");
 const config = require("config");
 const path = require("path");
+const { v4: uuidv4 } = require("uuid");
 
 class PathUtils {
   getFilePath(userId,filePath) {
       return path.join(`${config.get("filePath")}\\${userId}\\${filePath}`);
+    }
+  getBufferFilePath() {
+    const id = uuidv4();
+    const bufferPath = config.get("bufferPath");
+    const result = path.join(bufferPath, `${id}.mp4`);
+      return result;
     }
 
   getPaths(userId, parentFolderPath, file) {
