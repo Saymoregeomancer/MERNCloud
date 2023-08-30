@@ -15,27 +15,18 @@ class FileService {
     });
   }
 
-  uploadFile(parentFolderPath, newFile, userId, fileName) {
+  uploadFile(abslouteFilaPath,file) {
     return new Promise((resolve, reject) => {
       try {
-        const parentFolderFullPath =
-          parentFolderPath === "/"
-            ? `${config.get("filePath")}\\${userId}\\${fileName}`
-            : `${config.get(
-                "filePath"
-              )}\\${userId}\\${parentFolderPath}\\${fileName}`;
-
-        const filePath = path.join(parentFolderFullPath, "");
-
-        if (fs.existsSync(parentFolderFullPath)) {
+        if (fs.existsSync(abslouteFilaPath)) {
           reject("File already exists");
         }
 
-        newFile.mv(parentFolderFullPath);
+        file.mv(abslouteFilaPath);
 
-        return resolve({ message: "File was created" });
+        resolve({ message: "File was created" });
       } catch (e) {
-        return reject(e);
+         reject(e);
       }
     });
   }

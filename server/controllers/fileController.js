@@ -51,24 +51,24 @@ class FileController {
         .json({ files: [...dirStack, ...fileStack], parent: parentFolder });
     } catch (e) {
       console.error(e);
-      return res.status(400).json(e);
+      return res.status(400).json({message : e});
     }
   }
 
   async uploadFile(req, res) {
     try {
       if (!req.files || !req.files.file) {
-        return res.status(400).json({ message: "No file uploaded" });
+        throw new Error("No file uploaded");
       }
 
       const file = req.files.file;
-      const { parent } = req.body;
+      const parent = req.body.parent === "null" ? null : req.body.parent;
       const userId = req.user.id;
-      let parentFolderPath = "/";
+      const fileName = file.name.replace(/ /g, "_");
+      const fileType = fileName.split(".").pop();
+      let parentFolderPath;
 
-      const parentConst = parent === "null" ? null : parent;
-
-      if (parentConst != null) {
+      if (parent != null) {
         const parentFolder = await File.findOne({
           user: userId,
           _id: parent,
@@ -78,31 +78,20 @@ class FileController {
 
       const user = await User.findOne({ _id: userId });
       if (user.usedSpace + file.size > user.diskSpace) {
-        return res.status(400).json({ message: "There no space on the disk" });
+        throw new Error("There no space on the disk");
       }
       user.usedSpace = user.usedSpace + file.size;
-      const fileName = req.body.name.replace(/ /g, "_");
 
-      const mvFile = await fileService.uploadFile(
-        parentFolderPath,
-        file,
-        user.id,
-        fileName
-      );
+      const getPaths = PathUtils.getPaths(userId, parentFolderPath, fileName);
 
-      const fileType = fileName.split(".").pop();
-      const filePath = `${
-        parentFolderPath === "/" ? "" : parentFolderPath
-      }/${fileName}`;
-
-      const newFileParent = parentConst == null ? userId : parent;
+      await fileService.uploadFile(getPaths.aboluteFilePath, file);
 
       const fileDB = new File({
         name: fileName,
         type: fileType,
         size: file.size,
-        path: filePath,
-        parent: newFileParent,
+        path: getPaths.defaultFilePath,
+        parent: !parent ? userId : parent,
         user: user._id,
       });
 
@@ -112,7 +101,7 @@ class FileController {
       return res.status(200).json({ message: "File Uploaded" });
     } catch (e) {
       console.log(e);
-      return res.status(500).json(e);
+      return res.status(500).json({message: e});
     }
   }
 
