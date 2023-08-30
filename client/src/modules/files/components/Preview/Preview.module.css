@@ -1,0 +1,12 @@
+.container {
+  @apply p-5 bg-4 mt-1 rounded-md relative;
+}
+
+.resize {
+  @apply absolute right-2 rotate-90 top-2 cursor-pointer hover:text-purpleText transition-colors;
+}
+
+.loading {
+  height: 7rem;
+  margin: auto;
+}

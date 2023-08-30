@@ -1,0 +1,69 @@
+.planContainer {
+  animation: fade 0.5s;
+}
+
+@keyframes fade {
+  from {opacity: 0}
+  to{opacity: 0}
+}
+
+.planWrap {
+  @apply w-3/4;
+}
+
+.title {
+  @apply text-purpleButton;
+}
+
+.rangeSpace {
+  @apply flex justify-between;
+}
+.rangeSpaceNumber {
+  @apply text-secondText;
+}
+
+.priceWrap {
+  @apply mt-2;
+}
+
+.priceButtonWrap {
+  @apply flex justify-between;
+}
+
+.priceButton {
+  @apply w-4/12 text-center bg-1 rounded-t-md cursor-pointer text-secondText;
+}
+
+.priceButtonActive {
+  @apply bg-5 text-purpleText;
+}
+
+.priceButton:nth-child(2n) {
+  margin: 0 4px;
+}
+
+.price {
+  @apply text-center p-3 bg-5 text-secondText rounded-b-md;
+}
+
+.price span {
+  @apply text-purpleText;
+}
+
+.buttonContainer {
+  @apply mt-4 w-full flex justify-end;
+}
+.buttonWrap {
+  @apply w-3/12;
+}
+
+.planContainer {
+  @apply flex flex-col w-full  items-center;
+}
+
+.buttonContainer {
+  @apply mt-4 w-full flex justify-end;
+}
+.buttonWrap {
+  @apply w-3/12;
+}

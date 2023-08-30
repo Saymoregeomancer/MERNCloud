@@ -1,0 +1,10 @@
+.container {
+  @apply shadow-buttonMainExtract h-full w-full rounded-md;
+}
+
+.outline {
+  @apply  border-2 border-purpleButtonInactive flex rounded-md items-center justify-center hover:cursor-pointer transition-colors w-full h-full
+}
+.contained {
+  @apply  bg-purpleButton  flex rounded-md items-center justify-center border-2 hover:cursor-pointer shadow-buttonMainInset transition-colors hover:bg-transparent hover:border-purpleButton hover:shadow-none w-full h-full;
+}

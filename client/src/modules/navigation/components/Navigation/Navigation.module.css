@@ -1,0 +1,39 @@
+
+
+.navWrap {
+    @apply flex items-center w-full hover:cursor-pointer hover:text-white transition-all mt-3 rounded-l-lg pl-2 py-2 transition-all;
+}
+
+.title {
+    @apply ml-3 text-base
+}
+
+.active {
+    @apply text-white bg-1 rounded-tl-xl rounded-bl-xl relative transition-all;
+    /* border-top-left-radius: 26px; */
+    /* border-bottom-left-radius: 26px; */
+}
+
+.active:before{
+    content:'';
+    position: absolute;
+    width: 0.7rem;
+    height: 0.7rem;
+    transform: translate(-50%,-50%);
+    top: -14%;
+    left: 97%;
+    background-color:#121212;
+    clip-path: polygon(59.8% 57.3%, 78.4% 37.3%, 89.5% 19.5%, 100.1% 0%, 100.1% 100.3%, 0% 99.5%, 21.5% 90.3%, 33.5% 83.3%);
+}
+.active:after{
+    content:'';
+    position: absolute;
+    width: 0.7rem;
+    height: 0.7rem;
+    transform: rotate(270deg);
+    /* transform: translate(-50%,-50%); */
+    top: 100%;
+    left: 94%;
+    background-color:#121212;
+    clip-path: polygon(59.8% 57.3%, 78.4% 37.3%, 89.5% 19.5%, 100.1% 0%, 100.1% 100.3%, 0% 99.5%, 21.5% 90.3%, 33.5% 83.3%);
+}

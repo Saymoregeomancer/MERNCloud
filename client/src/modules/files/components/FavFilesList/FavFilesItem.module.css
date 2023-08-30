@@ -1,0 +1,15 @@
+.bodyItem {
+  @apply w-2/12 border-2 z-10 h-full hover:bg-tableSelect p-1 hover:cursor-pointer rounded-md transition-all;
+}
+
+.bodyItemHeader {
+  @apply w-full flex justify-center z-50;
+}
+
+.bodyItemTitle {
+  @apply text-center text-sm w-full overflow-hidden max-h-10;
+}
+
+.bodyItemSubTitle {
+  @apply text-secondText flex w-full justify-evenly text-xs h-full;
+}

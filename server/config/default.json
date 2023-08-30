@@ -1,0 +1,10 @@
+{
+    "dbUrl" : "mongodb+srv://dota2steam100:2389123vad@cluster0.tkhyv4r.mongodb.net/?retryWrites=true&w=majority",
+    "secretKey" : "bestKeyIsSipmleKey",
+    "serverPort" : 5000,
+    "filePath": "C:\\Users\\Dembe\\Desktop\\MERNCloud\\server\\uploads",
+    "bufferPath": "C:\\Users\\Dembe\\Desktop\\MERNCloud\\server\\buffer",
+    "supportedImageExtensions": [".png", ".jpg" , ".jpeg"],
+    "supportedAudioExtensions": [".mp3" , ".m4a"],
+    "supportedVideoExtensions": [".mp4"]
+ }

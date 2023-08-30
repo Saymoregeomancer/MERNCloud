@@ -1,0 +1,4 @@
+.container {
+    height: 96vh;
+    @apply text-white w-2/12 
+}

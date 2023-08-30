@@ -1,0 +1,12 @@
+
+.hexagon {
+    position: relative;
+    width: 55px;
+    height: 55px;
+    background: linear-gradient(45deg, #A73EE7 0%, #00EBFF 100%);
+    border-radius:40%;
+    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

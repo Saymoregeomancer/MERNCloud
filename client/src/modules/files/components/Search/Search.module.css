@@ -1,0 +1,19 @@
+.container {
+  @apply w-full px-4;
+}
+
+.wrap {
+  @apply bg-1 rounded-3xl w-7/12 h-12 py-1 px-2 flex items-center shadow-defaultShadow;
+}
+
+.button {
+  @apply bg-purpleButton shadow-buttonRounded border-2 border-purpleButton transition-all hover:text-secondText hover:bg-1 h-9 w-9 rounded-full flex items-center align-middle justify-center;
+}
+
+.inputWrap {
+  @apply w-9/12 flex justify-center;
+}
+
+.input {
+  @apply h-9 bg-1 focus-visible:outline-none;
+}

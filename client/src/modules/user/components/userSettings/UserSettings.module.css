@@ -1,0 +1,17 @@
+.container {
+    @apply bg-3 w-full mt-2 rounded-md p-2 flex items-center justify-evenly
+}
+
+
+.userPhotoWrap {
+    @apply h-auto text-secondText
+}
+
+.userPhoto{
+    @apply h-44 w-full object-contain
+}
+
+
+.buttonWrap {
+    @apply h-10 mt-1
+}

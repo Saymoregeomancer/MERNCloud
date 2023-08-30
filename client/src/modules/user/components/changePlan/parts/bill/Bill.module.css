@@ -1,0 +1,12 @@
+.container {
+    @apply text-secondText flex justify-center
+}
+
+.descr{
+    @apply w-2/4
+}
+
+
+.descr span {
+    @apply text-purpleText
+}

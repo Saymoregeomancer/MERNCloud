@@ -1,0 +1,9 @@
+.container {
+  @apply p-1 select-none;
+}
+
+.wrap {
+  @apply flex flex-wrap justify-start;
+}
+
+

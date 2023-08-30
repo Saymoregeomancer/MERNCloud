@@ -1,0 +1,3 @@
+.image {
+  @apply rounded-lg max-h-full;
+}

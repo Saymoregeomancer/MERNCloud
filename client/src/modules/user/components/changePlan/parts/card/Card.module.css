@@ -1,0 +1,107 @@
+:root {
+  --size: 12rem;
+}
+
+.container {
+  @apply flex flex-col;
+  animation: fade 0.5;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.cardWrap {
+  @apply flex justify-center items-center;
+}
+
+.card {
+  height: var(--size);
+  width: calc(1.586 * var(--size));
+  background-image: linear-gradient(
+      45deg,
+      rgba(0, 69, 199, 0.8),
+      rgba(255, 44, 125, 0.8)
+    ),
+    url("https://i.ibb.co/PYss3yv/map.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  filter: opacity(0.8);
+  @apply rounded-md p-3;
+}
+
+.cardFront {
+  @apply flex flex-col justify-between h-full;
+}
+.cardFrontHead {
+  @apply flex  justify-between items-center;
+}
+
+.cardFrontHeadItem {
+  @apply flex items-center;
+}
+
+.cardFrontBodyInput {
+  @apply w-3/12 mx-1 text-xl;
+}
+
+.cardFrontFootItem {
+  @apply w-3/12;
+}
+
+.cardFrontFootItemTitle {
+  @apply flex justify-center;
+}
+
+.cardFrontFootItemTitleTill {
+  @apply w-full text-center flex;
+}
+
+.spanSpace {
+  @apply mx-1;
+}
+
+.cardFrontFootItemCvv {
+  @apply w-4/6;
+}
+
+.input {
+  @apply rounded-md text-center bg-3 bg-opacity-50 overflow-hidden;
+}
+.input::-webkit-inner-spin-button,
+.input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.input {
+  -moz-appearance: textfield;
+}
+
+.input:focus-visible {
+  outline: none;
+}
+
+.cardFrontBody {
+  @apply flex;
+}
+
+.cardFrontFoot {
+  @apply flex justify-between text-center;
+}
+
+.cardFrontFootItemSubtitle {
+  @apply text-sm;
+}
+
+.buttonContainer {
+  @apply mt-4 w-full flex justify-end;
+}
+.buttonWrap {
+  @apply w-3/12;
+}

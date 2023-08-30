@@ -1,0 +1,20 @@
+[
+  {
+    "path": "/manager",
+    "elements": "Manager",
+    "title": "Panel",
+    "icon": "RxDashboard"
+  },
+  {
+    "path": "/shared",
+    "elements": "SharedContent",
+    "title": "Shared",
+    "icon": "RxShare1"
+  },
+  {
+    "path": "/settings",
+   "elements": "Settings",
+    "title": "Settings",
+    "icon": "RxMixerVertical"
+  }
+]

@@ -1,0 +1,26 @@
+.container {
+  @apply bg-2 mt-1 w-full rounded-md py-2 px-5 shadow-defaultShadow select-none z-10;
+}
+
+.header {
+  @apply flex justify-between text-sm text-secondText;
+}
+.headerWrap {
+  @apply flex justify-between text-sm text-secondText;
+}
+
+.headerClose {
+  @apply underline hover:cursor-pointer mx-2;
+}
+.headerFavFiles {
+  @apply underline hover:cursor-pointer mx-2;
+}
+
+.panelCollapse {
+  max-height: 500px;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+.panelClose {
+  max-height: 0;
+}

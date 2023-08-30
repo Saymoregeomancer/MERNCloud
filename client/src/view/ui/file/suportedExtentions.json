@@ -1,0 +1,20 @@
+
+
+{
+    "Archive": ["zip", "rar", "7z"],
+    "Image": ["jpeg", "png", "gif", "bmp", "jpg"],
+    "Video": ["mp4", "avi", "mkv"],
+    "Audio": ["mp3", "wav", "flac", "m4a"],
+    "Program": ["exe", "dmg", "deb"],
+    "Table": ["csv", "xlsx"],
+    "Html": ["html"],
+    "Css": ["css"],
+    "Php": ["php"],
+    "Js": ["js"],
+    "Python": ["py"],
+    "Present": ["ppt", "pptx", "key"],
+    "Config": ["ini", "cfg"],
+    "Word": ["pdf", "txt", "doc", "docx", "odt"],
+    "Db": ["sqlite", "db"],
+    "Json": ["json"]
+  }

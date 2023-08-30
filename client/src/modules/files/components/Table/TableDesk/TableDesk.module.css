@@ -1,0 +1,3 @@
+.container {
+  @apply text-secondText flex-col items-center  flex  mt-20;
+}

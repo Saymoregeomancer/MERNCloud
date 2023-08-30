@@ -1,0 +1,7 @@
+.wrap {
+  @apply  border-2 rounded-md border-iconGreen border-opacity-30 m-1 shadow-defaultShadow w-full h-full
+}
+
+.progress {
+  @apply h-full bg-iconGreen h-2 rounded-md
+}

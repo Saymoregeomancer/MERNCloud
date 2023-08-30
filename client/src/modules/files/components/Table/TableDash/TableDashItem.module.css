@@ -1,0 +1,35 @@
+.item {
+  @apply mx-1  rounded-md py-1 mt-1 px-2 border-2 border-transparent transition-colors shadow-defaultShadow cursor-pointer hover:bg-2 relative w-32;
+}
+.itemFile {
+  @apply flex justify-center mx-auto;
+}
+.itemFav {
+  @apply absolute top-1 right-1;
+}
+.itemName {
+  @apply text-center mx-auto;
+  word-wrap: break-word;
+}
+
+.descrItems {
+  @apply text-secondText text-xs flex justify-around select-none;
+}
+.descrItem {
+  @apply py-1;
+}
+
+.menuItem {
+  @apply flex m-1 p-1 rounded-md hover:bg-3 transition-all;
+}
+
+.menuTrash {
+  @apply text-red-500  hover:text-red-700  flex cursor-pointer transition-all;
+}
+.menuDownload {
+  @apply text-purpleButton hover:text-purpleButtonInactive flex cursor-pointer transition-all;
+}
+
+.menuSpan {
+  @apply ml-1;
+}

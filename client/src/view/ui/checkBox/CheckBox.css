@@ -1,0 +1,21 @@
+input[type="checkbox"] {
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border: 2px solid #000;
+  border-radius: 4px;
+  background-color: #000;
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked::before {
+  content: "";
+  display: block;
+  width: 7px;
+  height: 7px;
+  background-color: #fff;
+  border-radius: 2px;
+  margin: 3px;
+  position: absolute;
+}

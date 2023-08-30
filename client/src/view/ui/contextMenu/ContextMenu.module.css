@@ -1,0 +1,25 @@
+.container {
+  @apply relative;
+}
+
+.wrap {
+  @apply absolute  right-7 h-auto z-50 bg-5 p-2  rounded-md  w-44 transition-all
+    flex-row items-center top-1 shadow-defaultShadow  border-simplePurple border-2;
+}
+
+.fadeIn {
+  animation: fadeAnimation 0.3s;
+}
+
+.fadeOut {
+  animation: fadeAnimation 0.3s reverse;
+}
+
+@keyframes fadeAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

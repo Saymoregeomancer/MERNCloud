@@ -1,0 +1,19 @@
+.container {
+  @apply w-full  py-3 px-5 ;
+}
+
+.wrap {
+  @apply flex h-16;
+}
+
+.left {
+  @apply w-3/4 flex items-end;
+}
+
+.leftItems {
+  @apply flex justify-between;
+}
+
+.right {
+  @apply w-1/4 flex items-center justify-end;
+}

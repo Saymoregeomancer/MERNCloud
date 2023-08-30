@@ -1,0 +1,21 @@
+.wrap {
+  @apply bg-table h-28;
+  animation: fade 0.2s;
+}
+
+.container {
+  @apply bg-table z-0 w-full h-full p-2 rounded-md;
+}
+
+.loader {
+  @apply w-full flex justify-center h-60;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

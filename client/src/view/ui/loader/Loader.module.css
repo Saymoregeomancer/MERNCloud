@@ -1,0 +1,57 @@
+.container {
+  animation: fadeAnimation 0.5s;
+  height: 100%;
+}
+
+.cloud {
+  height: 50%;
+  width: auto;
+  scale: 2;
+}
+
+.bodyItems {
+  display: flex;
+  position: relative;
+}
+
+.item {
+  position: absolute;
+  color: #0beefe;
+}
+
+.upload {
+  animation: iteamAnimation 1.5s infinite linear;
+}
+
+.download {
+  animation: iteamAnimation 1.5s infinite reverse linear;
+}
+
+@keyframes iteamAnimation {
+  0% {
+    color: #7521cd;
+    top: 0;
+  }
+  100% {
+    color: #0beefe;
+    top: -3rem;
+  }
+}
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  height: 100%;
+  justify-content: center;
+}
+
+@keyframes fadeAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

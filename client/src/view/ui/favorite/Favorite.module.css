@@ -1,0 +1,9 @@
+
+
+.element {
+    @apply text-secondText transition-all hover:text-iconGreen hover:cursor-pointer
+}
+
+.elementActive {
+    @apply transition-all text-iconGreen hover:cursor-pointer
+}

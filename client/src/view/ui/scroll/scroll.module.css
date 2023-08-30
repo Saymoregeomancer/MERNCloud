@@ -1,0 +1,36 @@
+ .container {
+  overflow: auto;
+  z-index: 20;
+  height: 100%;
+}
+
+.container::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.container::-webkit-scrollbar-thumb {
+  @apply bg-purpleButtonInactive rounded-md;
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+  @apply bg-purpleButton;
+}
+
+.container::-webkit-scrollbar-track {
+  @apply bg-1 rounded-md h-1;
+}
+
+.container::-webkit-scrollbar-track:hover {
+  @apply bg-1;
+}
+.horizontal {
+  @apply w-full  flex;
+  overflow-y: hidden;
+  height: 100%;
+}
+.vertical {
+  height: 100%;
+  overflow-x: hidden;
+} 
+

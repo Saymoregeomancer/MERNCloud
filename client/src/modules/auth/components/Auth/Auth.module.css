@@ -1,0 +1,17 @@
+
+.container {
+    @apply px-1 w-full flex flex-col items-center
+}
+
+.inputWrap {
+    @apply mt-3 w-5/12 flex justify-center
+}
+
+
+.buttonsGroup {
+    @apply flex w-5/12  mt-3 h-10 
+}
+
+.titleWrap {
+    @apply mt-3 bg-green-900  rounded-xl px-2 flex items-center w-5/12 h-8
+}

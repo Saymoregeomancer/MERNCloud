@@ -1,0 +1,11 @@
+.sector {
+  @apply mt-1 bg-2 w-full rounded-md p-2;
+}
+.container {
+  @apply w-full  flex justify-center relative;
+}
+
+.description {
+  @apply w-2/4 px-3 py-1 text-purpleText rounded-md absolute -right-2/4 bg-4 ml-2 flex items-center scale-90;
+}
+

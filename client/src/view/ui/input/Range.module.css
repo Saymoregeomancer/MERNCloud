@@ -1,0 +1,45 @@
+.container {
+  @apply relative w-full;
+}
+.leftrack {
+  @apply bg-purpleButtonInactive absolute;
+  height: 10px;
+  z-index: 2;
+  left: -0.6%;
+  top: 35%;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  pointer-events: none;
+}
+
+.input {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  border-radius: 50%;
+  background-color: #007bff !important;
+  cursor: pointer;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.input::-webkit-slider-runnable-track {
+  @apply bg-secondText rounded-lg;
+  height: 10px;
+}
+
+.input::-webkit-slider-thumb {
+  @apply bg-purpleButtonInactive rounded-md;
+  -webkit-appearance: none;
+  border: none;
+  height: 14px;
+  width: 14px;
+  margin-top: -2px;
+}
+
+/* qwwwwwwwwwwwweeeeeeeeeeeeeeeeeeeeee */
+input[type="range"] {
+  -webkit-appearance: none;
+}

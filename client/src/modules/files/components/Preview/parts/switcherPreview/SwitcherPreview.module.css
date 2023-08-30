@@ -1,0 +1,24 @@
+.previewWrap {
+  @apply h-28 w-full flex justify-center items-center rounded-lg;
+}
+
+.fullScreen {
+  @apply h-full;
+}
+
+.preview {
+  @apply flex items-center justify-center h-full w-full;
+}
+
+.fadeIn {
+  animation: fade 0.5s;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

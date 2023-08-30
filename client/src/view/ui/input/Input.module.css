@@ -1,0 +1,11 @@
+.input {
+  @apply h-10 w-full bg-1 focus-visible:outline-none border-2 border-transparent rounded-xl shadow-defaultShadow p-1 px-2;
+}
+
+.error {
+  @apply border-mainerror text-mainerror;
+}
+
+.error::placeholder {
+  @apply text-mainerror;
+}

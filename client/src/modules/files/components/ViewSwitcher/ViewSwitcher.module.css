@@ -1,0 +1,3 @@
+.container {
+  @apply px-3 h-12 w-12 bg-2 rounded-full flex items-center justify-center shadow-defaultShadow text-secondText hover:cursor-pointer  transition-all hover:text-purpleButton shadow-defaultShadow active:shadow-none
+}

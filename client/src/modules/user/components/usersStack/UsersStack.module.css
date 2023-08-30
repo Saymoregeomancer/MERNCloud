@@ -1,0 +1,16 @@
+.container {
+    @apply px-3 py-2 bg-2 mt-2 rounded-md
+}
+
+.wrap{
+    @apply mt-2
+}
+
+.span {
+    @apply mt-1 text-secondText
+}
+
+
+.user{
+    @apply h-40 bg-2
+}

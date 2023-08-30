@@ -1,0 +1,10 @@
+
+
+.container {
+    filter: drop-shadow(0px 2px 5px black);
+}
+
+.element {
+    /* filter: drop-shadow(0px -0.5px 0.8px #FDFDFD); */
+    @apply text-textIcon 
+}

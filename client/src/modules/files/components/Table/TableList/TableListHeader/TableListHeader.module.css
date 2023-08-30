@@ -1,0 +1,30 @@
+.cell {
+  @apply flex w-full py-1 text-sm;
+}
+
+.check {
+  @apply w-6 flex items-center justify-end;
+}
+
+.icon {
+  @apply w-6 mx-2 justify-start items-center flex;
+}
+.name {
+  @apply w-5/12  mx-1 items-center flex text-sm;
+}
+
+.size {
+  @apply w-2/12  mx-1 items-center flex text-secondText text-sm;
+}
+.nonesize {
+  @apply w-2/12  mx-1 items-center flex opacity-0 text-sm;
+}
+.favorite {
+  @apply w-1/12 items-center flex justify-end mx-1;
+}
+.members {
+  @apply w-1/12  mx-1 items-center flex text-sm  text-secondText;
+}
+.actions {
+  @apply flex items-center justify-center mx-1 border-2 border-transparent transition-all  rounded-3xl p-1 h-7 w-7 text-secondText;
+}

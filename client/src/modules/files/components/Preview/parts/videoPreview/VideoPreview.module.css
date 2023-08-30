@@ -1,0 +1,8 @@
+.container {
+  @apply p-1 w-full h-full bg-tableSelect rounded-sm flex justify-center  items-center;
+}
+
+.video {
+  height: 100% !important;
+  width: 100% !important;
+}

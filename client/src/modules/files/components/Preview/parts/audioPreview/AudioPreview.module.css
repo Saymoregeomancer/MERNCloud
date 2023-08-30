@@ -1,0 +1,20 @@
+.audioPreview {
+  @apply flex flex-col items-center mt-5 w-full;
+}
+
+.panel {
+  @apply flex flex-row w-full justify-evenly mt-3 items-center;
+}
+
+.progressWrap {
+  @apply w-7/12;
+}
+.progressBar {
+  @apply w-full bg-secondText;
+  background-color: red !important;
+  color: red;
+}
+
+.time {
+  @apply text-secondText text-sm flex;
+}

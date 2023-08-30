@@ -1,0 +1,10 @@
+.descr {
+  @apply mt-3 text-sm;
+}
+
+.descrItem {
+  @apply flex justify-between p-1;
+}
+.subtitle {
+  @apply text-secondText;
+}

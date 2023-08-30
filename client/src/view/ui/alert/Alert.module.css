@@ -1,0 +1,30 @@
+.container {
+  border: 1px solid;
+  animation: 0.3s linear open;
+  background-color: #1c2d3e;
+  text-shadow: 0px 0px 12px #fe3839;
+  @apply fixed top-2 right-3 border-mainerror text-mainerror  rounded-md p-1 flex items-center;
+}
+
+.icon {
+  @apply text-lg p-1 font-bold;
+}
+
+.warning { 
+  text-shadow-color: #ffb302 !important;
+  @apply border-mainwarning text-mainwarning;
+}
+.success {
+  text-shadow-color: #57f000 !important;
+  @apply border-mainsuccess text-mainsuccess;
+}
+
+@keyframes open {
+  0% {
+    max-height: 0;
+    overflow: hidden;
+  }
+  100% {
+    max-height: 200px;
+  }
+}
