@@ -4,7 +4,7 @@ const ffmpeg = require("fluent-ffmpeg");
 const config = require("config");
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
-const deleteFolderRecursive = require("./recursiveDelete");
+const deleteFolderRecursive = require("../utils/recursiveDelete");
 
 class FileProcessor {
   async processImage(filePath, { resize }) {

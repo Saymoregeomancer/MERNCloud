@@ -6,7 +6,6 @@ const User = require("../models/User");
 const File = require("../models/File");
 const path = require("path");
 const archiver = require("archiver");
-const checkPath = require("../services/checkPath.utils");
 const PathUtils = require("../utils/Path.ustils");
 class FileController {
   async createDir(req, res) {
@@ -132,7 +131,7 @@ class FileController {
       }
     } catch (e) {
       console.log(e);
-      res.status(500).json({ message: "Download error" });
+      res.status(500).json({ message: e });
     }
   }
 
@@ -157,7 +156,7 @@ class FileController {
           user: req.user.id,
         });
         const filtedFiles = files.filter((file) =>
-          checkPath(parentPath, file.path)
+          PathUtils.checkPath(parentPath, file.path)
         );
 
         filtedFiles.forEach((file) => {
@@ -195,7 +194,7 @@ class FileController {
       let file = await File.findOne({ user: userId, _id: fileId });
       file.selected = !file.selected;
       await file.save();
-      return res.status(200).json("Selected");
+      return res.status(200).json({ message: "Selected" });
     } catch (e) {
       console.log(e);
       return res.status(400).json({ message: e });
@@ -212,12 +211,12 @@ class FileController {
         user: userId,
       };
 
-      if (fileName !== undefined) {
+      if (fileName) {
         fileQuery = Object.assign(fileQuery, {
           name: { $regex: fileName, $options: "i" },
         });
       }
-      if (fileSelect !== undefined) {
+      if (fileSelect) {
         fileQuery = Object.assign(fileQuery, { selected: fileSelect });
       }
 

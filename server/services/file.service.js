@@ -1,7 +1,7 @@
 const fs = require("fs");
 const config = require("config");
 const path = require("path");
-const deleteFolderRecursive = require("./recursiveDelete");
+const deleteFolderRecursive = require("../utils/recursiveDelete");
 
 class FileService {
   createDir(abslouteFilePath) {
