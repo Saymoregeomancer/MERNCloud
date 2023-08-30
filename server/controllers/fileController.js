@@ -7,23 +7,24 @@ const File = require("../models/File");
 const path = require("path");
 const archiver = require("archiver");
 const checkPath = require("../services/checkPath.utils");
-
+const PathUtils = require("../utils/Path.ustils");
 class FileController {
   async createDir(req, res) {
     try {
       const { name, parent } = req.body;
-      const user = req.user;
+      const userId = req.user.id;
+
       const parentFolder = parent
-        ? await File.findOne({ user: user.id, _id: parent })
+        ? await File.findOne({ user: userId, _id: parent })
         : null;
-      const newFolderPath = `${parentFolder?.path ?? ""}/${name}`;
-      await fileService.createDir(newFolderPath, user.id);
+      const getPaths = PathUtils.getPaths(userId, parentFolder?.path, name);
+      await fileService.createDir(getPaths.aboluteFilePath);
       await File.create({
         name,
         type: "folder",
-        path: newFolderPath,
-        parent: parentFolder ? parentFolder.id : user.id,
-        user: user.id,
+        path: getPaths.defaultFilePath,
+        parent: parentFolder ? parentFolder.id : userId,
+        user: userId,
       });
       return res.status(200).json({ message: "File was created" });
     } catch (error) {

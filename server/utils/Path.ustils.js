@@ -1,14 +1,35 @@
 const fs = require("fs");
 const config = require("config");
 const path = require("path");
-const deleteFolderRecursive = require("./recursiveDelete");
 
-class FileService {
-  createDir(abslouteFilaPath) {
+class PathUtils {
+  // getPath(file) {
+  //     return path.join(`${config.get("filePath")}\\${file.user}\\${file.path}`);
+  //   }
+
+  getPaths(userId, parentFolderPath, file) {
+    console.log(parentFolderPath)
+    const rootPath = `${config.get("filePath")}\\${userId}`;
+
+    const defaultFilePath = `${parentFolderPath? parentFolderPath : ""}/${file}`;
+    const aboluteFilePath = path.join(rootPath, defaultFilePath);
+
+    const paths = {
+      defaultFilePath: defaultFilePath,
+      rootPath: rootPath,
+      aboluteFilePath: aboluteFilePath,
+    };
+
+    return paths;
+  }
+
+  createDir(newFolderPath, userId) {
     return new Promise((resolve, reject) => {
-      if (!fs.existsSync(abslouteFilaPath)) {
-        fs.mkdirSync(abslouteFilaPath);
-        resolve( "File was created" );
+      const mainPath = `${config.get("filePath")}\\${userId}`;
+      const filePath = path.join(mainPath, newFolderPath);
+      if (!fs.existsSync(filePath)) {
+        fs.mkdirSync(filePath);
+        resolve({ message: "File was created" });
       } else {
         reject("File already exists");
       }
@@ -55,4 +76,4 @@ class FileService {
   }
 }
 
-module.exports = new FileService();
+module.exports = new PathUtils();
