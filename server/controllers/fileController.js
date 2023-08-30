@@ -51,7 +51,7 @@ class FileController {
         .json({ files: [...dirStack, ...fileStack], parent: parentFolder });
     } catch (e) {
       console.error(e);
-      return res.status(400).json({message : e});
+      return res.status(400).json({ message: e });
     }
   }
 
@@ -101,7 +101,7 @@ class FileController {
       return res.status(200).json({ message: "File Uploaded" });
     } catch (e) {
       console.log(e);
-      return res.status(500).json({message: e});
+      return res.status(500).json({ message: e });
     }
   }
 
@@ -138,35 +138,38 @@ class FileController {
 
   async deleteFile(req, res) {
     try {
+      const userId = req.user.id;
       const file = await File.findOne({
         _id: req.query.id,
-        user: req.user.id,
+        user: userId,
       });
       if (!file) {
-        return res.status(400).json({ message: "file not found" });
+        throw new Error("file not found");
       }
-      const parentPath = file.path;
-
-      const files = await File.find({
-        path: { $regex: parentPath },
-        user: req.user.id,
-      });
-
-      const filtedFiles = files.filter((file) =>
-        checkPath(parentPath, file.path)
-      );
-
       let deleteFilesSize = 0;
+      const parentPath = file.path;
+      if (file.type !== "folder") {
+        deleteFilesSize = file.size;
+        await File.deleteOne({ _id: file._id });
+      } else {
+        const files = await File.find({
+          path: { $regex: parentPath },
+          user: req.user.id,
+        });
+        const filtedFiles = files.filter((file) =>
+          checkPath(parentPath, file.path)
+        );
 
-      filtedFiles.forEach((file) => {
-        deleteFilesSize = deleteFilesSize + file.size;
-      });
+        filtedFiles.forEach((file) => {
+          deleteFilesSize = deleteFilesSize + file.size;
+        });
 
-      await File.deleteMany({
-        _id: { $in: filtedFiles.map((doc) => doc._id) },
-      });
+        await File.deleteMany({
+          _id: { $in: filtedFiles.map((doc) => doc._id) },
+        });
+      }
 
-      fileService.deleteFile(file);
+      fileService.deleteFile(PathUtils.getFilePath(userId, file.path), file);
 
       const user = await User.findOne({ _id: req.user.id });
 
@@ -181,7 +184,7 @@ class FileController {
       return res.json({ message: "File was deleted" });
     } catch (e) {
       console.log(e);
-      return res.status(400).json({ message: "Dir is not empty" });
+      return res.status(400).json({ message: e });
     }
   }
 
@@ -195,7 +198,7 @@ class FileController {
       return res.status(200).json("Selected");
     } catch (e) {
       console.log(e);
-      return res.status(400).json({ message: "Server error" });
+      return res.status(400).json({ message: e });
     }
   }
   async search(req, res) {
@@ -222,7 +225,7 @@ class FileController {
       return res.status(200).json({ files: [...files] });
     } catch (e) {
       console.log(e);
-      return res.status(400).json({ message: "Server error" });
+      return res.status(400).json({ message: e });
     }
   }
 

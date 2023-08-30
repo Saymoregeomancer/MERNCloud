@@ -4,41 +4,40 @@ const path = require("path");
 const deleteFolderRecursive = require("./recursiveDelete");
 
 class FileService {
-  createDir(abslouteFilaPath) {
+  createDir(abslouteFilePath) {
     return new Promise((resolve, reject) => {
-      if (!fs.existsSync(abslouteFilaPath)) {
-        fs.mkdirSync(abslouteFilaPath);
-        resolve( "File was created" );
+      if (!fs.existsSync(abslouteFilePath)) {
+        fs.mkdirSync(abslouteFilePath);
+        resolve("File was created");
       } else {
         reject("File already exists");
       }
     });
   }
 
-  uploadFile(abslouteFilaPath,file) {
+  uploadFile(abslouteFilePath, file) {
     return new Promise((resolve, reject) => {
       try {
-        if (fs.existsSync(abslouteFilaPath)) {
+        if (fs.existsSync(abslouteFilePath)) {
           reject("File already exists");
         }
 
-        file.mv(abslouteFilaPath);
+        file.mv(abslouteFilePath);
 
         resolve({ message: "File was created" });
       } catch (e) {
-         reject(e);
+        reject(e);
       }
     });
   }
 
-  deleteFile(file) {
-    const filePath = this.getPath(file);
+  deleteFile(abslouteFilePath, file) {
+    const filepath = path.join(abslouteFilePath , '')
     if (file.type === "dir" || file.type === "folder") {
-      deleteFolderRecursive(filePath);
+      deleteFolderRecursive(filepath);
     } else {
-      fs.unlinkSync(filePath);
+      fs.unlinkSync(filepath);
     }
-    return filePath;
   }
 
   getPath(file) {
