@@ -34,16 +34,15 @@ class FileController {
   }
   async getFiles(req, res) {
     try {
-      const { parent } = req.query;
-      const user = req.user.id;
-      const parentFolderQuery = {
-        user,
-        _id: parent === "null" ? user : parent,
-      };
-      const parentFolder = await File.findOne(parentFolderQuery);
+      const parent = req.query.parent === "null" ? null : req.query.parent;
+      const userId = req.user.id;
+      const parentFolder = await File.findOne({
+        user: userId,
+        _id: !parent ? userId : parent,
+      });
       const files = await File.find({
-        user,
-        parent: parent === "null" ? user : parent,
+        user: userId,
+        parent: !parent ? userId : parent,
       }).sort({ name: 1 });
       const dirStack = files.filter((elem) => elem.type === "folder");
       const fileStack = files.filter((elem) => elem.type !== "folder");
