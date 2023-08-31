@@ -7,11 +7,11 @@ const { v4: uuidv4 } = require("uuid");
 const deleteFolderRecursive = require("../utils/recursiveDelete");
 
 class FileProcessor {
-  async processImage(filePath,  resize ) {
+  async processImage(filePath, resize) {
     try {
       if (resize) {
         return await sharp(filePath).resize(150, 150).toBuffer();
-      } else  {
+      } else {
         return await sharp(filePath).toBuffer();
       }
     } catch (e) {
@@ -29,27 +29,55 @@ class FileProcessor {
     }
   }
 
+  // async processVideo(filePath, bufferPath, resize) {
+  //   console.log(resize)
+  //   try {
+  //     const ffmpegCommand = ffmpeg(filePath);
+
+  //     if (resize) {
+  //       ffmpegCommand.size("150x150");
+  //     }
+
+  //     await new Promise((resolve, reject) => {
+  //       ffmpegCommand
+  //         .output(bufferPath)
+  //         .on("end", resolve)
+  //         .on("error", reject)
+  //         .run();
+  //     });
+  //   } catch (err) {
+  //     throw new Error(`Video processing error: ${err.message}`);
+  //   }
+  // }
 
   async processVideo(filePath, bufferPath, resize) {
     try {
-      const ffmpegCommand = ffmpeg(filePath);
-  
       if (resize) {
-        ffmpegCommand.size("150x150");
+        await new Promise((resolve, reject) => {
+          ffmpeg(filePath)
+            .size("150x150")
+            .output(bufferPath)
+            .on("end", resolve)
+            .on("error", reject)
+            .run();
+        });
+
+        return bufferPath;
+      } else {
+        await new Promise((resolve, reject) => {
+          ffmpeg(filePath)
+            .output(bufferPath)
+            .on("end", resolve)
+            .on("error", reject)
+            .run();
+        });
+
+        return bufferPath;
       }
-  
-      await new Promise((resolve, reject) => {
-        ffmpegCommand
-          .output(bufferPath)
-          .on("end", resolve)
-          .on("error", reject)
-          .run();
-      });
     } catch (err) {
       throw new Error(`Video processing error: ${err.message}`);
     }
   }
-  
 
   async clearBuffer(bufferFilesPath) {
     let folderFilesArr = bufferFilesPath[0].split("\\");

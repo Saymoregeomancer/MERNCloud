@@ -12,7 +12,7 @@ export const fetchPreview = createAsyncThunk(
         id: file._id,
         resize: resize,
       };
-      const response = await requestApiGetFile(`files/previewc`, params);
+      const response = await requestApiGetFile(`files/preview`, params);
 
       const url = URL.createObjectURL(response.data);
       const data = { url: url, type: response.data.type };

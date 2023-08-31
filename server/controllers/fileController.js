@@ -235,6 +235,8 @@ class FileController {
       const resize = req.query.resize === "true" ? true : false;
       const userId = req.user.id;
       const file = await File.findOne({ _id: fileId, user: req.user.id });
+      
+
       if (!file) {
         return res.status(404).json({ message: "File not found" });
       }
@@ -262,7 +264,7 @@ class FileController {
           let bufferPath = PathUtils.getBufferFilePath();
           res.set("Content-Type", "video/mp4");
 
-          preview = await fileProcessor.processVideo(filePath, bufferPath);
+          preview = await fileProcessor.processVideo(filePath, bufferPath ,resize);
           const videoStream = fs.createReadStream(preview);
           await videoStream.pipe(res);
           videoStream.on("end", async () => {

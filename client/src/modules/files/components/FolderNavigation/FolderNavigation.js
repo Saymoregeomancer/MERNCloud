@@ -26,6 +26,9 @@ const FolderNavigation = ({}) => {
   const pathArray = pathGenerator(currentDir);
 
   const handlerNavBtn = (parent = null) => {
+    if (!parent) {
+      return;
+    }
     dispatch(fetchFiles(parent));
   };
 

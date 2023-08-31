@@ -14,7 +14,7 @@ const VideoPreview = ({ fullScreen }) => {
 
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.load(); // Оновіть відео, щоб завантажити новий source
+      videoRef.current.load();
     }
   }, [preview]);
 

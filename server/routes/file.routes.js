@@ -10,7 +10,7 @@ router.get("/download", authMiddleware, fileController.downloadFile);
 router.delete("/delete", authMiddleware, fileController.deleteFile);
 router.get("/select", authMiddleware, fileController.select);
 router.get("/search", authMiddleware, fileController.search);
-router.get("/preview/",authMiddleware,  fileController.getPreview)
+router.get("/preview",authMiddleware,  fileController.getPreview)
 
 
 module.exports = router;

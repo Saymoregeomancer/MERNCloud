@@ -29,7 +29,7 @@ const DrugAndDrop = () => {
       dispatch(fetchFiles(currentDir === null ? null : currentDir._id));
       setSendingFile(false);
     } catch (e) {
-      setSendingFileError(e.message);
+      setSendingFileError(e.response.data.message);
       setSendingFile(false);
       console.log(e.message);
     }

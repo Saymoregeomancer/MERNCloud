@@ -2,7 +2,7 @@ import styles from "./CreateFolderForm.module.css";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFiles } from "../../../store/actions/fileActions";
-import { Input, Button , Alert } from "../../../../../view/ui";
+import { Input, Button, Alert } from "../../../../../view/ui";
 import { requestApiPost } from "../../../../../utils/api/request.api";
 
 const CreateFolderForm = ({ onHide }) => {
@@ -31,16 +31,20 @@ const CreateFolderForm = ({ onHide }) => {
         type: "folder",
         parent: currentDir,
       };
+      
 
       const response = await requestApiPost("files/createDir", data);
-
-      console.log(response);
       setName("");
-      dispatch(fetchFiles());
+      dispatch(fetchFiles(currentDir === null ? null : currentDir._id));
       onHide();
     } catch (error) {
-      setError(error.data);
+      setError(error.response.data.message);
       console.error(error);
+    }
+  };
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleButtonClick();
     }
   };
   return (
@@ -48,13 +52,14 @@ const CreateFolderForm = ({ onHide }) => {
       <Input
         value={name}
         onChange={handleInputChange}
-        placeholder= "Folder name"
+        placeholder="Folder name"
         error={error}
+        onKeyDown={handleKeyDown}
       />
       <div className={styles.buttonWrap}>
         <Button onClick={handleButtonClick}>Create</Button>
       </div>
-      <Alert message={error}/>
+      <Alert message={error} />
     </>
   );
 };

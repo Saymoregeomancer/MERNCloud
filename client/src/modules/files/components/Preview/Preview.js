@@ -41,7 +41,7 @@ const Preview = () => {
         {isLoading ? (
           <div className="flex flex-col">
             {renderLoader()}
-            <span>We are restoring the original file size, please wait</span>
+            <span>We are restoring the original file size, please wait...</span>
           </div>
         ) : (
           <SwitcherPreview fullScreen />

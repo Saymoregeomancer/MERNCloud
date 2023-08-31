@@ -24,7 +24,6 @@ export const requestApiGetFile = async (endpoint, params) => {
     params: params,
     responseType: "blob",
   });
-
   return response;
 };
 
