@@ -10,8 +10,8 @@ const TableDesk = ({}) => {
 return (
  
 <div className={styles.container}> 
-    <Smile size={200}/>
-    <span>soon to be....</span>
+    <Smile size={40}/>
+    <span>Soon to be....</span>
  </div> 
  
 );

@@ -1,9 +1,9 @@
-import { File } from "../../../../../../view/ui";
-import styles from "./TableListBodyCell.module.css";
+import { File } from "../../../../../../../../view/ui";
+import styles from "./ListType.module.css";
 
-const ListType = ({ typeFunc = null, fileType }) => {
+const ListType = ({ onClick = null, fileType }) => {
   const handlerFileClick = () => {
-    typeFunc();
+    onClick();
   };
 
   return (

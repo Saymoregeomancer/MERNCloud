@@ -1,4 +1,4 @@
-import styles from "./TableListBodyCell.module.css";
+import styles from "./ListCheck.module.css";
 
 
 const ListCheck = (checkFunc= null) => {

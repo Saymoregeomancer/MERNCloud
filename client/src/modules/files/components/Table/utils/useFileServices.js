@@ -80,8 +80,18 @@ const useFileServices = (file) => {
       console.error(error);
     }
   };
+  const handleShare = async () => {
+    try {
+      setCursorWait();
+ 
+        console.log(`File ${file._id} shared`)
+      setCursorDefault();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  return { handleFile, handleSelectFile, handleDelete, handleDownload };
+  return { handleFile, handleSelectFile, handleDelete, handleDownload ,handleShare };
 };
 
 export default useFileServices;

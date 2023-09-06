@@ -1,0 +1,6 @@
+.size {
+    @apply w-2/12  mx-1 items-center flex text-secondText text-sm;
+  }
+  .nonesize {
+    @apply w-2/12  mx-1 items-center flex opacity-0 text-sm;
+  }

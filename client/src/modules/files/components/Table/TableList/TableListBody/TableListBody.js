@@ -1,6 +1,6 @@
 import styles from "./TableListBody.module.css";
 import { useSelector } from "react-redux";
-import TableListBodyCell from "../TableListBodyCell/TableListBodyCell";
+import TableListBodyCell from "./TableListBodyCell";
 
 const TableBody = ({}) => {
   const { files } = useSelector((state) => state.files);

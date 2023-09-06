@@ -10,7 +10,7 @@ import DynamicComponent from "../../../../utils/DynamicComponent";
 const initialState = [
   { type: "list", component: List },
   { type: "dash", component: Small },
-  { type: "desck", component: Big },
+  { type: "desk", component: Big },
 ];
 
 const ViewSwitcher = ({}) => {

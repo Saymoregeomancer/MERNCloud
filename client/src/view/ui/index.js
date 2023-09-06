@@ -12,7 +12,9 @@ import Range from "./input/Range";
 import PlayBtn from "./button/PlayBtn";
 import Modal from "./modal/Modal";
 import Alert from "./alert/Alert";
+import ContextMenuBtn from "./button/ContextMenuBtn";
 export {
+  ContextMenuBtn,
   Alert, 
   PlayBtn,
   Range,

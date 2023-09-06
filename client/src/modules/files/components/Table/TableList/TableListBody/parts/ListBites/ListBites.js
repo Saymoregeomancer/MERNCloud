@@ -1,5 +1,5 @@
-import { formatBytes } from "../../../../utils";
-import styles from "./TableListBodyCell.module.css";
+import { formatBytes } from "../../../../../../utils";
+import styles from "./ListBites.module.css";
 
 const ListBites = ({ fileSize }) => {
   return (

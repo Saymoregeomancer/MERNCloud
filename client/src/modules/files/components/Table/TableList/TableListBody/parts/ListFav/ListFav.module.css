@@ -1,0 +1,3 @@
+.favorite {
+    @apply w-1/12 items-center flex justify-end mx-1;
+  }

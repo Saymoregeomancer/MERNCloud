@@ -1,0 +1,10 @@
+.cell {
+  @apply flex z-0 w-full py-1 text-sm hover:bg-tableSelect rounded-lg transition-all hover:shadow-defaultShadow items-center;
+}
+
+.cellActive {
+  @apply bg-tableSelect rounded-lg transition-all shadow-defaultShadow
+}
+.actions {
+  @apply items-center  mx-1  border-transparent h-7 w-7 text-secondText hover:shadow-defaultShadow relative z-50 flex justify-center hover:text-purpleText cursor-pointer hover:border-simplePurple border-2 rounded-full
+}

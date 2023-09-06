@@ -7,18 +7,26 @@ import { processString } from "../../../utils/sting.utils.js";
 import { Fvorite, Popup } from "../../../../../view/ui";
 import { formatBytes } from "../../../utils/byte.utils";
 import { useSelector } from "react-redux";
-import useFileServices from "../services/useFileServices";
+import useFileServices from "../utils/useFileServices";
 import { useState } from "react";
 
 import {
   HiOutlineTrash as Trash,
   HiOutlineCloudDownload as Download,
+  HiOutlineShare as Share,
 } from "react-icons/hi";
+import FileContextMenu from "../utils/fileContextMenu/fileContextMenu";
+import { useTableContext } from "../utils/useTableContext";
 
 const TableDashItem = ({ file }) => {
-  const { currentDir } = useSelector((state) => state.files);
-  const { handleFile, handleSelectFile, handleDelete, handleDownload } =
-    useFileServices(file, currentDir);
+  const {
+    handleFile,
+    handleSelectFile,
+    handleDelete,
+    handleDownload,
+    handleShare,
+  } = useFileServices(file);
+  const { isPremiumTable, isSharedTable } = useTableContext();
 
   const { show, btnRef, menuRef, handleBtnClick } = useMenuContext();
 
@@ -32,16 +40,9 @@ const TableDashItem = ({ file }) => {
     handleSelectFile();
   };
 
-  const handleDownloadBtn = () => {
-    handleDownload()
-    handleBtnClick()
-  }
-  const handleDeleteBtn = () => {
-    handleDelete()
-    handleBtnClick()
-  }
-
-
+  const toggleModal = () => {
+    handleBtnClick();
+  };
 
   const handleRightClick = (event) => {
     setCoordinates({ clientX: event.clientX, clientY: event.clientY });
@@ -51,6 +52,40 @@ const TableDashItem = ({ file }) => {
     // Наприклад, виведення повідомлення в консоль
     console.log(event);
   };
+
+  const buttons = [
+    {
+      title: "Download",
+      icon: Download,
+      onClick: () => {
+        handleDownload();
+        toggleModal();
+      },
+    },
+  ];
+
+  if (isPremiumTable) {
+    buttons.push({
+      title: "Share",
+      icon: Share,
+      onClick: () => {
+        handleShare();
+        toggleModal();
+      },
+    });
+  }
+
+  if (!isSharedTable) {
+    buttons.push({
+      title: "Delete",
+      icon: Trash,
+      color: "red",
+      onClick: () => {
+        handleDelete();
+        toggleModal();
+      },
+    });
+  }
 
   return (
     <div ref={btnRef} onContextMenu={handleRightClick} className={styles.item}>
@@ -72,33 +107,13 @@ const TableDashItem = ({ file }) => {
         <div className={styles.descrItem}>Only you</div>
       </div>
       <div
-        ref={menuRef}
-        className={"z-50 fixed"}
+        className="z-50 fixed"
         style={{
           top: `${coordinates.clientY + 10}px`,
           left: `${coordinates.clientX + 10}px`,
         }}
       >
-        <ContextMenu isShow={show} menuStyle={"bottom-10"}>
-          <div
-             onClick={handleDownloadBtn}
-            className={styles.menuItem}
-          >
-            <div className={styles.menuDownload}>
-              <Download size={18} />
-              <span className={styles.menuSpan}>Download</span>
-            </div>
-          </div>
-          <div
-            onClick={handleDeleteBtn}
-            className={styles.menuItem}
-          >
-            <div className={styles.menuTrash}>
-              <Trash size={18} />
-              <span className={styles.menuSpan}>Delete</span>
-            </div>
-          </div>
-        </ContextMenu>
+        <FileContextMenu menuRef={menuRef} show={show} buttons={buttons} />
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
-import styles from "./TableListBodyCell.module.css";
-import { Favorite } from "../../../../../../view/ui";
-const ListFav = ({ selectFunc , fileSelect }) => {
+import styles from "./ListFav.module.css";
+import { Favorite } from "../../../../../../../../view/ui";
+const ListFav = ({ onClick , fileSelect }) => {
   const handleSelect = async () => {
-    await selectFunc();
+    await onClick();
   };
 
   return (

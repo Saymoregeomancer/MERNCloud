@@ -1,0 +1,4 @@
+
+.icon {
+    @apply w-6 mx-2 justify-start items-center flex;
+  }

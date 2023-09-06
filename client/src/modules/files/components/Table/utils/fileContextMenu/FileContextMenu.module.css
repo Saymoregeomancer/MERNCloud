@@ -1,0 +1,5 @@
+.contextMenuStyle {
+    @apply px-1 py-1 bottom-0;
+    top: 0 !important;
+    right: -1rem !important;
+  }
