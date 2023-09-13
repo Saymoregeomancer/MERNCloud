@@ -22,7 +22,7 @@ const Table = () => {
   }
 
   let contextValue = {
-    isPremiumTable: false,
+    isPremiumTable: true,
     isSharedTable: false,
   };
 

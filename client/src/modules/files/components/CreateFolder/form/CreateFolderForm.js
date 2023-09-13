@@ -1,12 +1,13 @@
 import styles from "./CreateFolderForm.module.css";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchFiles } from "../../../store/actions/fileActions";
+import { useSelector } from "react-redux";
 import { Input, Button, Alert } from "../../../../../view/ui";
 import { requestApiPost } from "../../../../../utils/api/request.api";
+import { useFilesAction } from "../../../store/files/useFileActions";
 
 const CreateFolderForm = ({ onHide }) => {
-  const dispatch = useDispatch();
+  const { fetchFiles } = useFilesAction();
+
   const { currentDir } = useSelector((state) => state.files);
 
   const [error, setError] = useState(null);
@@ -31,11 +32,10 @@ const CreateFolderForm = ({ onHide }) => {
         type: "folder",
         parent: currentDir,
       };
-      
 
       const response = await requestApiPost("files/createDir", data);
       setName("");
-      dispatch(fetchFiles(currentDir === null ? null : currentDir._id));
+      fetchFiles(currentDir === null ? null : currentDir._id);
       onHide();
     } catch (error) {
       setError(error.response.data.message);

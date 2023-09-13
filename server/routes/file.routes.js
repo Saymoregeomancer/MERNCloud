@@ -11,6 +11,9 @@ router.delete("/delete", authMiddleware, fileController.deleteFile);
 router.get("/select", authMiddleware, fileController.select);
 router.get("/search", authMiddleware, fileController.search);
 router.get("/preview",authMiddleware,  fileController.getPreview)
+router.post("/share", authMiddleware, fileController.shareFile);
+router.get("/getShared", authMiddleware, fileController.getSharedFiles);
+router.get("/getPreviewShared", authMiddleware, fileController.previewSharedFiles);
 
 
 module.exports = router;

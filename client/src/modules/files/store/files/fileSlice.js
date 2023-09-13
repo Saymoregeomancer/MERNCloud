@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchFiles, searchFiles } from "../actions/fileActions";
+import { fetchFiles, searchFiles } from "./fileActions";
 
 const initialState = {
   files: [],
@@ -10,15 +10,25 @@ const initialState = {
   error: null,
 };
 
-const authSlice = createSlice({
+const filesSlice = createSlice({
   name: "files",
   initialState,
   reducers: {
-    setFiles: (state, actions) => {
-      state.files = actions.payload;
-    },
     setView: (state, actions) => {
       state.view = actions.payload;
+    },
+    setSelect: (state, action) => {
+      const { id } = action.payload;
+      state.files = state.files.map((obj) => {
+        if (obj._id === id) {
+          return { ...obj, selected: !obj.selected };
+        }
+        return obj;
+      });
+    },
+    deleteFile: (state, action) => {
+      const { id } = action.payload;
+      state.files = state.files.filter((file) => file._id !== id);
     },
   },
   extraReducers: (builder) => {
@@ -53,6 +63,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { setView, setFiles } = authSlice.actions;
+export const { setView, setSelect ,deleteFile } = filesSlice.actions;
 
-export default authSlice.reducer;
+export default filesSlice.reducer;

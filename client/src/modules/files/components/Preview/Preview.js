@@ -1,23 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./Preview.module.css";
-import { File, Loader, Modal } from "../../../../view/ui";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchPreview } from "../../";
+import { Loader, Modal } from "../../../../view/ui";
+import { useSelector } from "react-redux";
 import { FiMaximize2 } from "react-icons/fi";
+import { usePreviewActions } from "../../store/preview/usePreviewActions";
 import DescrPreview from "./parts/descrPreview/DescrPreview";
 import SwitcherPreview from "./parts/switcherPreview/SwitcherPreview";
 import conf from "./successTypes.json";
 
 const Preview = () => {
   const { previewFile, previewType } = useSelector((state) => state.preview);
-
+  const { fetchPreview } = usePreviewActions();
   const isLoading = useSelector((state) => state.preview.isLoading);
-  const dispatch = useDispatch();
   const [modal, setModal] = useState(false);
 
   const handleFullScreen = () => {
     setModal(true);
-    dispatch(fetchPreview({ file: previewFile, resize: false }));
+    fetchPreview({ file: previewFile, resize: false });
   };
   const handleCloseFullScreen = () => {
     setModal(false);

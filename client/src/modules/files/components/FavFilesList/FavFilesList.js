@@ -1,23 +1,23 @@
 import styles from "./FavFilesList.module.css";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { searchFiles } from "../../store/actions/fileActions";
 import { Scroll } from "../../../../view/ui";
 import FavFilesItem from "./FavFilesItem";
+import { useFilesAction } from "../../store/files/useFileActions";
 
 const FavFilesList = ({}) => {
   const [hide, setIsHide] = useState(false);
-
-  const dispatch = useDispatch();
+  const { searchFiles } = useFilesAction();
   const handleSearchAllFiles = () => {
-    dispatch(searchFiles(true));
+    searchFiles(true);
     setIsHide(false);
   };
 
   const { files } = useSelector((state) => state.files);
 
-  const selectedFiles = files.filter(({ selected = false}) => selected === true);
+  const selectedFiles = files.filter(
+    ({ selected = false }) => selected === true
+  );
 
   return (
     <div className={styles.container}>

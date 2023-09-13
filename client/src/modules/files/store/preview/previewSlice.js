@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchPreview } from "../actions/previewActions";
+import { fetchPreview } from "./previewActions";
 
 const initialState = {
   previewFile: null,

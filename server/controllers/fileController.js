@@ -4,10 +4,12 @@ const config = require("config");
 const fs = require("fs");
 const User = require("../models/User");
 const File = require("../models/File");
+const SharedAccessLink = require("../models/SharedAccessLink");
 const path = require("path");
 const archiver = require("archiver");
 const PathUtils = require("../utils/Path.ustils");
 const getExtensionType = require("../utils/getExtensionType.utils");
+const AccessLink = require("../utils/accessLink.utils");
 class FileController {
   async createDir(req, res) {
     try {
@@ -86,6 +88,11 @@ class FileController {
 
       await fileService.uploadFile(getPaths.aboluteFilePath, file);
 
+      const accessLink = AccessLink.createAccessLink(
+        userId,
+        getPaths.defaultFilePath
+      );
+
       const fileDB = new File({
         name: fileName,
         type: fileType,
@@ -93,6 +100,7 @@ class FileController {
         path: getPaths.defaultFilePath,
         parent: !parent ? userId : parent,
         user: user._id,
+        accessLink: accessLink,
       });
 
       await fileDB.save();
@@ -289,34 +297,143 @@ class FileController {
       return res.status(500).json({ message: e });
     }
   }
+  async shareFile(req, res) {
+    try {
+      const { accessLink, email } = req.body;
 
-  // async uploadAvatar(req, res) {
-  //   try {
-  //     const file = req.files.file;
-  //     const user = await User.findById(req.user.id);
-  //     const avatarName = Uuid.v4() + ".jpg";
-  //     file.mv(config.get("staticPath") + "\\" + avatarName);
-  //     user.avatar = avatarName;
-  //     await user.save();
-  //     return res.json(user);
-  //   } catch (e) {
-  //     console.log(e);
-  //     return res.status(400).json({ message: "Upload avatar error" });
-  //   }
-  // }
+      const userToShareFile = await User.findOne({ email });
 
-  // async deleteAvatar(req, res) {
-  //   try {
-  //     const user = await User.findById(req.user.id);
-  //     fs.unlinkSync(config.get("staticPath") + "\\" + user.avatar);
-  //     user.avatar = null;
-  //     await user.save();
-  //     return res.json(user);
-  //   } catch (e) {
-  //     console.log(e);
-  //     return res.status(400).json({ message: "Delete avatar error" });
-  //   }
-  // }
+      if (!userToShareFile) {
+        throw new Error("User not found");
+      }
+
+      await SharedAccessLink.findOneAndUpdate(
+        { user: userToShareFile._id },
+        { $push: { links: accessLink } },
+        { upsert: true }
+      );
+
+      return res.status(200).json({ message: "The file has been sent" });
+    } catch (e) {
+      console.error(e);
+      return res
+        .status(500)
+        .json({ message: e.message || "Internal server error" });
+    }
+  }
+  async getSharedFiles(req, res) {
+    try {
+      const userId = req.user.id;
+
+      const sharedNode = await SharedAccessLink.findOne({ user: userId });
+
+      if (sharedNode.links.length === 0) {
+        return res.status(200).json({ files: [], parentFolder: null });
+      }
+
+      const filePromises = sharedNode.links.map(async (link) => {
+        const file = await File.findOne({ accessLink: link });
+        return file;
+      });
+
+      const files = await Promise.all(filePromises);
+
+      return res.status(200).json({ files: files, parent: null });
+    } catch (e) {
+      console.error(e);
+      return res
+        .status(500)
+        .json({ message: e.message || "Internal server error" });
+    }
+  }
+  async previewSharedFiles(req, res) {
+    try {
+      // const decodedLinks = sharedNode.links.map( link => {
+      //   return AccessLink.decryptAccessLink(link)
+      // })
+      const userId = req.user.id;
+
+      const sharedNode = await SharedAccessLink.findOne({ user: userId });
+
+      if (sharedNode.links.length === 0) {
+        return res.status(200).json({ files: [], parentFolder: null });
+      }
+
+      // const decodedLinks = sharedNode.links.map( link => {
+      //   return AccessLink.decryptAccessLink(link)
+      // })
+
+      const filePromises = sharedNode.links.map(async (link) => {
+        const file = await File.findOne({ accessLink: link });
+        return file;
+      });
+
+      const files = await Promise.all(filePromises);
+
+      // const fileId = req.query.id;
+      // const resize = req.query.resize === "true" ? true : false;
+      // const userId = req.user.id;
+      // const file = await File.findOne({ _id: fileId, user: req.user.id });
+
+      // if (!file) {
+      //   return res.status(404).json({ message: "File not found" });
+      // }
+
+      // const filePath = PathUtils.getFilePath(userId, file.path);
+      // const previewType = getExtensionType(file.type);
+
+      // switch (previewType) {
+      //   case "image": {
+      //     const previewImage = await fileProcessor.processImage(
+      //       filePath,
+      //       resize
+      //     );
+      //     res.set("Content-Type", "image/jpeg");
+      //     return res.send(previewImage);
+      //   }
+      //   case "audio": {
+      //     const audioBuffer = fileProcessor.processAudio(filePath);
+      //     res.set("Content-Type", "audio/mpeg");
+      //     res.set("Content-Disposition", `attachment; filename="${file.name}"`);
+      //     return res.send(audioBuffer);
+      //   }
+      //   case "video": {
+      //     let preview;
+      //     let bufferPath = PathUtils.getBufferFilePath();
+      //     res.set("Content-Type", "video/mp4");
+
+      //     preview = await fileProcessor.processVideo(
+      //       filePath,
+      //       bufferPath,
+      //       resize
+      //     );
+      //     const videoStream = fs.createReadStream(preview);
+      //     await videoStream.pipe(res);
+      //     videoStream.on("end", async () => {
+      //       fs.unlink(bufferPath, (err) => {
+      //         if (err) {
+      //           console.error("Помилка при видаленні файлу:", err);
+      //         }
+      //       });
+      //     });
+      //     break;
+      //   }
+      //   default: {
+      //     res.status(200).json(file);
+      //     break;
+      //   }
+      // }
+
+      return res.status(200).json({ files: files, parent: null });
+    } catch (e) {
+      console.error(e);
+      return res
+        .status(500)
+        .json({ message: e.message || "Internal server error" });
+    }
+  }
 }
+
+// downloadSharedFiles
 
 module.exports = new FileController();

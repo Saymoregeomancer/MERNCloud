@@ -29,26 +29,7 @@ class FileProcessor {
     }
   }
 
-  // async processVideo(filePath, bufferPath, resize) {
-  //   console.log(resize)
-  //   try {
-  //     const ffmpegCommand = ffmpeg(filePath);
-
-  //     if (resize) {
-  //       ffmpegCommand.size("150x150");
-  //     }
-
-  //     await new Promise((resolve, reject) => {
-  //       ffmpegCommand
-  //         .output(bufferPath)
-  //         .on("end", resolve)
-  //         .on("error", reject)
-  //         .run();
-  //     });
-  //   } catch (err) {
-  //     throw new Error(`Video processing error: ${err.message}`);
-  //   }
-  // }
+  
 
   async processVideo(filePath, bufferPath, resize) {
     try {

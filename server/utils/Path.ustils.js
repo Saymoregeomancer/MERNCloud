@@ -3,6 +3,10 @@ const path = require("path");
 const { v4: uuidv4 } = require("uuid");
 
 class PathUtils {
+
+  createNewUserFolder(userId) {
+      return path.join(`${config.get("filePath")}\\${userId}`);
+    }
   getFilePath(userId,filePath) {
       return path.join(`${config.get("filePath")}\\${userId}\\${filePath}`);
     }

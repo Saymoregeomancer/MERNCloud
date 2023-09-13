@@ -19,14 +19,21 @@ import {
 
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { fetchFiles } from "../../../modules/files/store/actions/fileActions";
+import { fetchFiles } from "../../../modules/files/store/files/fileActions";
 import { fetchUser } from "../../../modules/user/slice/userSlice";
 
+import { useFilesAction } from "../../../modules/files/store/files/useFileActions";
+
 const Manager = () => {
+
+  const {fetchFiles}= useFilesAction()
+
+  // console.log(useFilesAction())
   const dispatch = useDispatch(); 
 
   useEffect(() => {
-    dispatch(fetchFiles());
+    fetchFiles()
+    // dispatch(fetchFiles());
     dispatch(fetchUser());
   });
 

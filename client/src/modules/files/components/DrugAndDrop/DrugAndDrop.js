@@ -2,15 +2,14 @@ import styles from "./DrugAndDrop.module.css";
 
 import { requestApiUploadFile } from "../../../../utils/api/requestsFile.api";
 import { Button, ProgresBar, Alert } from "../../../../view/ui";
-import { fetchFiles } from "../../store/actions/fileActions";
-
+import { useFilesAction } from "../../store/files/useFileActions";
 import { useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const DrugAndDrop = () => {
   const [dragging, setDragging] = useState(false);
+  const { fetchFiles } = useFilesAction();
   const fileInputRef = useRef(null);
-  const dispatch = useDispatch();
   const { currentDir } = useSelector((state) => state.files);
   const [sendingFile, setSendingFile] = useState(false);
   const [sendingFileError, setSendingFileError] = useState(null);
@@ -26,7 +25,7 @@ const DrugAndDrop = () => {
         file,
         setProgresPercent
       );
-      dispatch(fetchFiles(currentDir === null ? null : currentDir._id));
+      fetchFiles(currentDir === null ? null : currentDir._id);
       setSendingFile(false);
     } catch (e) {
       setSendingFileError(e.response.data.message);

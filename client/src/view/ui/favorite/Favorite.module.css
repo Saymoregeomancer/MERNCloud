@@ -1,9 +1,8 @@
-
-
 .element {
-    @apply text-secondText transition-all hover:text-iconGreen hover:cursor-pointer
+  stroke-width: 4.5rem;
+  @apply stroke-secondText cursor-pointer scale-95 fill-none hover:stroke-iconGreen;
 }
 
 .elementActive {
-    @apply transition-all text-iconGreen hover:cursor-pointer
+  @apply fill-iconGreen stroke-none scale-100;
 }

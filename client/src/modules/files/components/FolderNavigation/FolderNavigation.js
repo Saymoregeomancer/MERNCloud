@@ -1,10 +1,9 @@
 import styles from "./FolderNavigation.module.css";
 import { BsThreeDotsVertical as Dot } from "react-icons/bs";
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { fetchFiles } from "../../store/actions/fileActions";
 import { MdArrowBack as Arrow } from "react-icons/md";
 import { processString } from "../../utils";
+import { useFilesAction } from "../../store/files/useFileActions";
 
 function pathGenerator(str) {
   if (str === null) {
@@ -19,17 +18,14 @@ function pathGenerator(str) {
 }
 
 const FolderNavigation = ({}) => {
-  const dispatch = useDispatch();
 
+  const {fetchFiles} = useFilesAction()
   const { currentDir } = useSelector((state) => state.files);
 
   const pathArray = pathGenerator(currentDir);
 
   const handlerNavBtn = (parent = null) => {
-    if (!parent) {
-      return;
-    }
-    dispatch(fetchFiles(parent));
+    fetchFiles(parent);
   };
 
   return (
