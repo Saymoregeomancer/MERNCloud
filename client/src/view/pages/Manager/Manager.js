@@ -1,11 +1,5 @@
-import {
-  NavigationsLayout,
-  MainLayout,
-  Menu,
-  SideBarLayout,
-} from "../../layouts";
-import { Navigation } from "../../../modules/navigation";
-import { Profile } from "../../../modules/user";
+import { MainLayout, Menu, SideBarLayout } from "../../layouts";
+import { Profile, useUserAction } from "../../../modules/user";
 import {
   Search,
   DrugAndDrop,
@@ -15,34 +9,22 @@ import {
   ViewSwitcher,
   FolderNavigation,
   CreateFolder,
+  useFilesAction,
 } from "../../../modules/files";
 
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { fetchFiles } from "../../../modules/files/store/files/fileActions";
-import { fetchUser } from "../../../modules/user/slice/userSlice";
-
-import { useFilesAction } from "../../../modules/files/store/files/useFileActions";
 
 const Manager = () => {
-
-  const {fetchFiles}= useFilesAction()
-
-  // console.log(useFilesAction())
-  const dispatch = useDispatch(); 
+  const { fetchUser } = useUserAction();
+  const { fetchFiles } = useFilesAction();
 
   useEffect(() => {
-    fetchFiles()
-    // dispatch(fetchFiles());
-    dispatch(fetchUser());
+    fetchFiles();
+    fetchUser();
   });
 
   return (
     <>
-      <NavigationsLayout>
-        <Navigation />
-      </NavigationsLayout>
-
       <MainLayout>
         <Search />
         <Menu

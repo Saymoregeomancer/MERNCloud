@@ -18,130 +18,14 @@ import {
 } from "react-icons/hi";
 
 import { requestApiDownloadFile } from "../../../../../utils/api/requestsFile.api";
-// const useFileServices = (file, isPrem = false, isShared = false) => {
-//   const { setPreviewFile, fetchPreview } = usePreviewActions();
-//   const { fetchFiles, setSelect, deleteFile } = useFilesAction();
-
-//   const handleFile = useCallback(() => {
-//     console.log('render')
-//     if (file.type !== "folder") {
-//       setPreviewFile(file);
-//       fetchPreview({ file, resize: true });
-//       return;
-//     }
-
-//     fetchFiles(file._id);
-//   })
-
-//   const handleSelectFile = async () => {
-//     setCursorWait();
-//     const params = { _id: file._id };
-//     const response = await requestApiGet("files/select", params);
-//     if (response.status !== 200) {
-//       setCursorDefault();
-//       return;
-//     }
-//     setSelect({ id: file._id });
-//     setCursorDefault();
-//   };
-
-//   const handleDelete = async () => {
-//     setCursorWait();
-//     const response = await requestApiDelete("files/delete", { id: file._id });
-//     if (response.status !== 200) {
-//       setCursorDefault();
-//       return;
-//     }
-//     deleteFile({ id: file._id });
-//     setCursorDefault();
-//   };
-
-//   const handleDownload = async () => {
-//     try {
-//       setCursorWait();
-//       const params = { id: file._id };
-//       const response = await requestApiDownloadFile("files/download", params);
-//       if (response.status !== 200) {
-//         setCursorDefault();
-//         return;
-//       }
-
-//       const blob = response.data;
-//       const fileUrl = URL.createObjectURL(blob);
-//       const link = document.createElement("a");
-//       link.href = fileUrl;
-//       link.download = file.name;
-//       link.click();
-//       URL.revokeObjectURL(fileUrl);
-//       setCursorDefault();
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
-//   const handleShare = async () => {
-//     try {
-//       setCursorWait();
-//       console.log(`File ${file._id} shared`);
-//       setCursorDefault();
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
-//   const getMenuButtons =  (btnClick = null) => {
-
-//     const buttons = [
-//       {
-//         title: "Download",
-//         icon: Download,
-//         onClick: () => {
-//           handleDownload();
-//           if (btnClick) {btnClick()}
-//         },
-//       },
-//     ];
-
-//     if (isPrem && !isShared && file.type !== 'folder') {
-//       buttons.push({
-//         title: "Share",
-//         icon: Share,
-//         onClick: () => {
-//           handleShare();
-//           if (btnClick) {btnClick()}
-//         },
-//       });
-//     }
-
-//       console.log('render')
-//     if (!isShared) {
-//       buttons.push({
-//         title: "Delete",
-//         icon: Trash,
-//         color: "red",
-//         onClick: () => {
-//           handleDelete();
-//         },
-//       });
-//     }
-
-//     return buttons
-//   };
-
-//   return {
-//     handleFile,
-//     handleSelectFile,
-//     handleDelete,
-//     handleDownload,
-//     handleShare,
-//     getMenuButtons,
-//   };
-// };
 
 const useFileServices = (file, isPrem = false, isShared = false) => {
   const { setPreviewFile, fetchPreview } = usePreviewActions();
   const { fetchFiles, setSelect, deleteFile } = useFilesAction();
 
+  console.log(file);
+
   const handleFile = useCallback(() => {
-    console.log("render");
     if (file.type !== "folder") {
       setPreviewFile(file);
       fetchPreview({ file, resize: true });
@@ -172,8 +56,11 @@ const useFileServices = (file, isPrem = false, isShared = false) => {
   const handleDownload = useCallback(async () => {
     try {
       setCursorWait();
-      const params = { id: file._id };
-      const response = await requestApiDownloadFile("files/download", params);
+      const params = { id: file._id, accessLink: file.accessLink };
+      const response = await requestApiDownloadFile(
+        !isShared ? "files/download" : "files/downloadShared",
+        params
+      );
       if (response.status === 200) {
         const blob = response.data;
         const fileUrl = URL.createObjectURL(blob);

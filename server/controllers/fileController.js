@@ -1,11 +1,9 @@
 const fileService = require("../services/file.service");
 const fileProcessor = require("../services/file.processor");
-const config = require("config");
 const fs = require("fs");
 const User = require("../models/User");
 const File = require("../models/File");
 const SharedAccessLink = require("../models/SharedAccessLink");
-const path = require("path");
 const archiver = require("archiver");
 const PathUtils = require("../utils/Path.ustils");
 const getExtensionType = require("../utils/getExtensionType.utils");
@@ -241,8 +239,9 @@ class FileController {
     try {
       const fileId = req.query.id;
       const resize = req.query.resize === "true" ? true : false;
-      const userId = req.user.id;
-      const file = await File.findOne({ _id: fileId, user: req.user.id });
+      const file = await File.findOne({ _id: fileId });
+
+      const userId = file.user;
 
       if (!file) {
         return res.status(404).json({ message: "File not found" });
@@ -327,7 +326,7 @@ class FileController {
 
       const sharedNode = await SharedAccessLink.findOne({ user: userId });
 
-      if (sharedNode.links.length === 0) {
+      if (sharedNode?.links.length === 0) {
         return res.status(200).json({ files: [], parentFolder: null });
       }
 
@@ -337,8 +336,9 @@ class FileController {
       });
 
       const files = await Promise.all(filePromises);
+      const filesArray = files.filter((element) => element !== null);
 
-      return res.status(200).json({ files: files, parent: null });
+      return res.status(200).json({ files: filesArray, parent: null });
     } catch (e) {
       console.error(e);
       return res
@@ -346,94 +346,27 @@ class FileController {
         .json({ message: e.message || "Internal server error" });
     }
   }
-  async previewSharedFiles(req, res) {
+
+  downloadSharedFile = async (req, res) => {
     try {
-      // const decodedLinks = sharedNode.links.map( link => {
-      //   return AccessLink.decryptAccessLink(link)
-      // })
-      const userId = req.user.id;
+      const { accessLink, id: fileId } = req.query;
+      const decryptLink = AccessLink.decryptAccessLink(accessLink);
 
-      const sharedNode = await SharedAccessLink.findOne({ user: userId });
+      const newReq = {
+        query: {
+          id: fileId,
+        },
+        user: {
+          id: decryptLink.userId,
+        },
+      };
 
-      if (sharedNode.links.length === 0) {
-        return res.status(200).json({ files: [], parentFolder: null });
-      }
-
-      // const decodedLinks = sharedNode.links.map( link => {
-      //   return AccessLink.decryptAccessLink(link)
-      // })
-
-      const filePromises = sharedNode.links.map(async (link) => {
-        const file = await File.findOne({ accessLink: link });
-        return file;
-      });
-
-      const files = await Promise.all(filePromises);
-
-      // const fileId = req.query.id;
-      // const resize = req.query.resize === "true" ? true : false;
-      // const userId = req.user.id;
-      // const file = await File.findOne({ _id: fileId, user: req.user.id });
-
-      // if (!file) {
-      //   return res.status(404).json({ message: "File not found" });
-      // }
-
-      // const filePath = PathUtils.getFilePath(userId, file.path);
-      // const previewType = getExtensionType(file.type);
-
-      // switch (previewType) {
-      //   case "image": {
-      //     const previewImage = await fileProcessor.processImage(
-      //       filePath,
-      //       resize
-      //     );
-      //     res.set("Content-Type", "image/jpeg");
-      //     return res.send(previewImage);
-      //   }
-      //   case "audio": {
-      //     const audioBuffer = fileProcessor.processAudio(filePath);
-      //     res.set("Content-Type", "audio/mpeg");
-      //     res.set("Content-Disposition", `attachment; filename="${file.name}"`);
-      //     return res.send(audioBuffer);
-      //   }
-      //   case "video": {
-      //     let preview;
-      //     let bufferPath = PathUtils.getBufferFilePath();
-      //     res.set("Content-Type", "video/mp4");
-
-      //     preview = await fileProcessor.processVideo(
-      //       filePath,
-      //       bufferPath,
-      //       resize
-      //     );
-      //     const videoStream = fs.createReadStream(preview);
-      //     await videoStream.pipe(res);
-      //     videoStream.on("end", async () => {
-      //       fs.unlink(bufferPath, (err) => {
-      //         if (err) {
-      //           console.error("Помилка при видаленні файлу:", err);
-      //         }
-      //       });
-      //     });
-      //     break;
-      //   }
-      //   default: {
-      //     res.status(200).json(file);
-      //     break;
-      //   }
-      // }
-
-      return res.status(200).json({ files: files, parent: null });
+      await this.downloadFile(newReq, res);
     } catch (e) {
-      console.error(e);
-      return res
-        .status(500)
-        .json({ message: e.message || "Internal server error" });
+      console.log(e);
+      res.status(500).json({ message: e });
     }
-  }
+  };
 }
-
-// downloadSharedFiles
 
 module.exports = new FileController();

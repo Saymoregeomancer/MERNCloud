@@ -13,7 +13,7 @@ router.get("/search", authMiddleware, fileController.search);
 router.get("/preview",authMiddleware,  fileController.getPreview)
 router.post("/share", authMiddleware, fileController.shareFile);
 router.get("/getShared", authMiddleware, fileController.getSharedFiles);
-router.get("/getPreviewShared", authMiddleware, fileController.previewSharedFiles);
+router.get("/downloadShared", authMiddleware, fileController.downloadSharedFile);
 
 
 module.exports = router;

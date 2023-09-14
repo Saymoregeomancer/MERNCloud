@@ -1,39 +1,38 @@
-import { NavigationsLayout, MainLayout, SideBarLayout } from "../../layouts";
-import { Navigation } from "../../../modules/navigation";
+import { MainLayout, SideBarLayout , Menu} from "../../layouts";
 import {
   ChangePlan,
   Profile,
   UserSettings,
   UsersStack,
 } from "../../../modules/user";
+import { Table , ViewSwitcher , Preview } from "../../../modules/files";
 
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { fetchUser } from "../../../modules/user/slice/userSlice";
+
+import { useUserAction } from "../../../modules/user";
+import { useFilesAction } from "../../../modules/files";
 
 const SharedContent = () => {
-  const dispatch = useDispatch();
+  const { fetchUser } = useUserAction();
+  const {fetchSharedFiles} = useFilesAction()
 
   useEffect(() => {
-    dispatch(fetchUser());
+    fetchUser();
+    fetchSharedFiles({isShared : true})
   });
 
   return (
     <>
-      <NavigationsLayout>
-        <Navigation />
-      </NavigationsLayout>
-
       <MainLayout>
         {/* <ChangePlan />
         <UserSettings /> */}
-         <div className="flex items-center h-full w-full justify-center">
-          <span>Comming soon....</span>
-        </div>
+        <Menu right={<ViewSwitcher/>}/>
+        <Table isShared={true} />
       </MainLayout>
       <SideBarLayout>
         <Profile />
         {/* <UsersStack /> */}
+        <Preview/>
       </SideBarLayout>
     </>
   );

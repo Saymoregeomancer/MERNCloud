@@ -1,14 +1,15 @@
 import styles from "./ChangePlan.module.css";
-import { useSelector } from "react-redux";
-import { useState } from "react";
+
 import Card from "./parts/card/Card";
 import Planner from "./parts/planner/Planner";
 import Bill from "./parts/bill/Bill";
-import { increasePlan } from "../../slice/userSlice";
-import { useDispatch } from "react-redux";
+
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useUserAction } from "../../store/useUserActions";
 
 const ChangePlan = ({}) => {
-  const dispatch = useDispatch()
+  const { increasePlan } = useUserAction();
   const { isPremium } = useSelector((state) => state.user);
 
   const [cardData, setCardData] = useState(null);
@@ -18,8 +19,8 @@ const ChangePlan = ({}) => {
 
   const handleChangeView = () => {
     setViewIndex((viewIndex + 1) % 3);
-    if(viewIndex ==2 ) {
-      dispatch(increasePlan(planData.space,planData.plan))
+    if (viewIndex == 2) {
+      increasePlan(planData.space, planData.plan);
     }
   };
   const componentCircle = [

@@ -5,7 +5,7 @@ const initialState = {
   files: [],
   currentDir: null,
   dirStack: [],
-  view: "list",
+  view: "dash",
   isLoading: false,
   error: null,
 };

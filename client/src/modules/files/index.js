@@ -8,8 +8,11 @@ import Preview from "./components/Preview/Preview";
 import FavFilesList from "./components/FavFilesList/FavFilesList";
 import DrugAndDrop from "./components/DrugAndDrop/DrugAndDrop";
 import Search from "./components/Search/Search";
-
+import { useFilesAction } from "./store/files/useFileActions";
+import { usePreviewActions } from "./store/preview/usePreviewActions";
 export {
+  usePreviewActions,
+  useFilesAction,
   previewReducer,
   fileReducer,
   Search,

@@ -5,7 +5,6 @@ import TableListBodyCell from "./TableListBodyCell";
 const TableBody = ({}) => {
   const { files } = useSelector((state) => state.files);
 
-    console.log('render')
   return (
     <div className={styles.body}>
       {files.map((file, index) => (
@@ -13,6 +12,6 @@ const TableBody = ({}) => {
       ))}
     </div>
   );
-};
+} 
 
 export default TableBody;

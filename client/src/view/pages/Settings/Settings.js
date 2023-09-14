@@ -1,24 +1,18 @@
-import { NavigationsLayout, MainLayout, SideBarLayout } from "../../layouts";
-import { Navigation } from "../../../modules/navigation";
+import { MainLayout, SideBarLayout } from "../../layouts";
 import { ChangePlan, Profile, UserSettings } from "../../../modules/user";
 
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { fetchUser } from "../../../modules/user/slice/userSlice";
+import { useUserAction } from "../../../modules/user";
 
 const Settings = () => {
-  const dispatch = useDispatch();
+  const { fetchUser } = useUserAction();
 
   useEffect(() => {
-    dispatch(fetchUser());
+    fetchUser();
   });
 
   return (
     <>
-      <NavigationsLayout>
-        <Navigation />
-      </NavigationsLayout>
-
       <MainLayout>
         <ChangePlan />
         {/* <UserSettings /> */}

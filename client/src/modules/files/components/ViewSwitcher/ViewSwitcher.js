@@ -8,8 +8,8 @@ import { useFilesAction } from "../../store/files/useFileActions";
 import DynamicComponent from "../../../../utils/DynamicComponent";
 
 const initialState = [
-  { type: "list", component: List },
   { type: "dash", component: Small },
+  { type: "list", component: List },
   { type: "desk", component: Big },
 ];
 
