@@ -1,6 +1,7 @@
 import Auth from "./components/Auth/Auth";
-import authReducer from './slice/authSlice'
+import authReducer from './store/authSlice'
+import { useAuthActions } from "./store/useAuthActions";
 
 
 
-export {Auth , authReducer}
+export {Auth , authReducer,useAuthActions}

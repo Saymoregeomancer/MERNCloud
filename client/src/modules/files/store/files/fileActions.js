@@ -16,6 +16,7 @@ export const fetchFiles = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.error(error);
+      throw new Error(error.message);
     }
   }
 );
@@ -30,6 +31,7 @@ export const fetchSharedFiles = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.error(error);
+      throw new Error(error.message);
     }
   }
 );

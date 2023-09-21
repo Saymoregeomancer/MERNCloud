@@ -1,21 +1,12 @@
-.container {
-  @apply mt-1 p-3 rounded-md bg-3 h-52 relative;
-}
-
-.input {
-  display: none;
-  /* overflow: hidden */
-}
-
 .input {
   @apply flex justify-center items-center border-dashed  border-2 flex-col border-simplePurple rounded-md p-3 shadow-defaultShadow h-full w-full;
 }
 .drug {
   @apply flex justify-center items-center border-solid  border-2 flex-col border-simplePurple rounded-md p-3 shadow-defaultShadow h-full w-full;
 }
-/* 
-.icon {
-  @apply text-simplePurple;
+
+/* .input {
+  display: none;
 } */
 
 .textBox {
@@ -32,32 +23,4 @@
 
 .uploadBtn {
   @apply text-secondText underline text-center mx-auto flex;
-  animation: 0.3s;
-}
-
-.progresWrap {
-  @apply h-full w-full flex flex-col items-center justify-center text-center ;
-}
-
-@keyframes fade {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-.progresBarWrap {
-  @apply w-full max-h-3 ;
-}
-.progresTitle {
-  @apply text-sm text-purpleButton mt-1
-}
-
-
-.progresPercent {
-  @apply text-center mt-1;
-  color: #08BFA6;
 }

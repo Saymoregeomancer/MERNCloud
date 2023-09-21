@@ -6,4 +6,10 @@
   @apply flex flex-wrap justify-start;
 }
 
+.notFoundContainer {
+  @apply h-full w-full flex justify-center mt-3
+}
 
+.notFoundWrapTitle {
+  @apply flex flex-col items-center text-secondText text-lg 
+}

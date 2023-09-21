@@ -5,8 +5,12 @@ const useMenuContext = () => {
   const btnRef = useRef(null);
   const menuRef = useRef(null);
 
+
   useEffect(() => {
     const handleClickOutside = (event) => {
+      // console.log(menuRef.current.childNodes)
+      // console.log(event.target)
+      // console.log(menuRef.current.contains(event.target))
         if (
             menuRef.current &&
             !menuRef.current.contains(event.target) &&
@@ -22,6 +26,7 @@ const useMenuContext = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
 
   const handleBtnClick = () => {
     setShow(!show);

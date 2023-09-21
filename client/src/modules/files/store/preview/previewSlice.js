@@ -32,6 +32,7 @@ const previewSlice = createSlice({
       })
       .addCase(fetchPreview.rejected, (state, action) => {
         state.isLoading = false;
+        console.log(action)
         state.error = action.error.message;
       });
   },

@@ -13,7 +13,9 @@ import PlayBtn from "./button/PlayBtn";
 import Modal from "./modal/Modal";
 import Alert from "./alert/Alert";
 import ContextMenuBtn from "./button/ContextMenuBtn";
+import Skeleton from "./skeleton/Skeleton";
 export {
+  Skeleton,
   ContextMenuBtn,
   Alert, 
   PlayBtn,

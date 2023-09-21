@@ -15,6 +15,7 @@ const Preview = () => {
   const [modal, setModal] = useState(false);
 
   const handleFullScreen = () => {
+    console.log('asdasdasd')
     setModal(true);
     fetchPreview({ file: previewFile, resize: false });
   };

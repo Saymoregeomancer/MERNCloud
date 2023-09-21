@@ -23,8 +23,6 @@ const useFileServices = (file, isPrem = false, isShared = false) => {
   const { setPreviewFile, fetchPreview } = usePreviewActions();
   const { fetchFiles, setSelect, deleteFile } = useFilesAction();
 
-  console.log(file);
-
   const handleFile = useCallback(() => {
     if (file.type !== "folder") {
       setPreviewFile(file);
@@ -80,7 +78,6 @@ const useFileServices = (file, isPrem = false, isShared = false) => {
   const handleShare = useCallback(async () => {
     try {
       setCursorWait();
-      console.log(`File ${file._id} shared`);
     } catch (error) {
       console.error(error);
     } finally {
@@ -88,46 +85,48 @@ const useFileServices = (file, isPrem = false, isShared = false) => {
     }
   }, [file]);
 
-  const getMenuButtons = (btnClick) => {
-    const buttons = [
-      {
-        title: "Download",
-        icon: Download,
-        onClick: () => {
-          handleDownload();
-          if (btnClick) {
-            btnClick();
-          }
+  const getMenuButtons = useMemo(() => {
+    return (afterButtonClickFuntion) => {
+      const buttons = [
+        {
+          title: "Download",
+          icon: Download,
+          onClick: () => {
+            handleDownload();
+            if (afterButtonClickFuntion) {
+              afterButtonClickFuntion();
+            }
+          },
         },
-      },
-    ];
+      ];
 
-    if (isPrem && !isShared && file.type !== "folder") {
-      buttons.push({
-        title: "Share",
-        icon: Share,
-        onClick: () => {
-          handleShare();
-          if (btnClick) {
-            btnClick();
-          }
-        },
-      });
-    }
+      if (isPrem && !isShared && file.type !== "folder") {
+        buttons.push({
+          title: "Share",
+          icon: Share,
+          onClick: () => {
+            handleShare();
+            if (afterButtonClickFuntion) {
+              afterButtonClickFuntion();
+            }
+          },
+        });
+      }
 
-    if (!isShared) {
-      buttons.push({
-        title: "Delete",
-        icon: Trash,
-        color: "red",
-        onClick: () => {
-          handleDelete();
-        },
-      });
-    }
+      if (!isShared) {
+        buttons.push({
+          title: "Delete",
+          icon: Trash,
+          color: "red",
+          onClick: () => {
+            handleDelete();
+          },
+        });
+      }
 
-    return buttons;
-  };
+      return buttons;
+    };
+  }, [handleDownload, handleShare, handleDelete, isPrem, isShared, file]);
 
   return {
     handleFile,

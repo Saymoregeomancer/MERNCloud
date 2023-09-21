@@ -27,3 +27,10 @@ export const requestApiDelete = async (endpoint, params) => {
   });
   return response;
 };
+
+export const requestApiSimplePost = async (endpoint, body) => {
+  let url = `${apiUrl}/${endpoint}`;
+  const response = await axios.post(url, body);
+
+  return response;
+};

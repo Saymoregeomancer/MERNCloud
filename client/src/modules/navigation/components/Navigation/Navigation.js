@@ -1,5 +1,5 @@
 import styles from "./Navigation.module.css";
-import routes from "../../../../config/routes.config.json";
+import {routes} from "../../../../config/routes.config";
 import { useLocation, Link } from "react-router-dom";
 import * as RxIcons from "react-icons/rx";
 import DynamicComponent from "../../../../utils/DynamicComponent";

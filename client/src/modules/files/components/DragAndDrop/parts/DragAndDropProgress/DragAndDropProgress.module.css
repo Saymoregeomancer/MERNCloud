@@ -1,0 +1,15 @@
+.progresWrap {
+  @apply h-full w-full flex flex-col items-center justify-center text-center;
+}
+
+.progresBarWrap {
+  @apply w-full max-h-3;
+}
+.progresTitle {
+  @apply text-sm text-purpleButton mt-1;
+}
+
+.progresPercent {
+  @apply text-center mt-1;
+  color: #08bfa6;
+}

@@ -19,9 +19,8 @@ export const fetchPreview = createAsyncThunk(
 
       return data;
     } catch (error) {
-      console.error(error);
+      console.error(error.message);
+      throw new Error(error.message);
     }
   }
 );
-
-

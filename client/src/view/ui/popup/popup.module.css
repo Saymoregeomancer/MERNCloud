@@ -3,7 +3,7 @@
 }
 
 .text {
-  @apply absolute p-1 px-2 bg-1 rounded-xl inline-block text-xs text-secondText transition-all z-50 bottom-2 ;
+  @apply fixed p-1 px-2 bg-1 rounded-xl inline-block text-xs text-secondText transition-all z-50 bottom-2 ;
   word-wrap: break-word;
   position: fixed;
   height: auto;

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 const Alert = ({ message, type = "error" }) => {
   const [isVisible, setIsVisible] = useState(false);
+  // const [stateMessage, setStateMessage] = useState(null);
 
   useEffect(() => {
     if (message) {
@@ -16,8 +17,12 @@ const Alert = ({ message, type = "error" }) => {
         clearTimeout(timer);
       };
     } else {
-      setIsVisible(false); // Установка isVisible в false, если message равно null
+      setIsVisible(false);
     }
+
+    return () => {
+      setIsVisible(false);
+    };
   }, [message]);
 
   let typeClass = "";

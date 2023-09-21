@@ -2,7 +2,7 @@ import { MainLayout, Menu, SideBarLayout } from "../../layouts";
 import { Profile, useUserAction } from "../../../modules/user";
 import {
   Search,
-  DrugAndDrop,
+  DragAndDrop,
   FavFilesList,
   Preview,
   Table,
@@ -41,12 +41,12 @@ const Manager = () => {
           }
         />
         <FavFilesList />
-        <Table />
+        <Table isPremium={true}/>
       </MainLayout>
       <SideBarLayout>
         <Profile />
         <Preview />
-        <DrugAndDrop />
+        <DragAndDrop />
       </SideBarLayout>
     </>
   );

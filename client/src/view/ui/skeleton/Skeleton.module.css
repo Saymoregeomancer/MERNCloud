@@ -1,0 +1,49 @@
+.span {
+  @apply w-full h-3 bg-3 rounded-sm my-1 overflow-hidden relative;
+}
+.circle {
+  @apply bg-4 rounded-full my-1 overflow-hidden relative;
+}
+.square {
+  @apply bg-4 rounded-md my-1 overflow-hidden relative;
+}
+
+.light {
+  @apply absolute  bg-purpleButtonInactive   shadow-purpleButtonInactive shadow-xl top-0 h-full w-3;
+
+  box-shadow: -10px 0px 0px 0px rgba(87, 31, 142, 1),
+    -15px 0px 0px 0px rgba(87, 31, 142, 0.9),
+    -20px 0px 0px 0px rgba(87, 31, 142, 0.8),
+    -25px 0px 0px 0px rgba(87, 31, 142, 0.7),
+    -30px 0px 0px 0px rgba(87, 31, 142, 0.6),
+    -35px 0px 0px 0px rgba(87, 31, 142, 0.5),
+    -40px 0px 0px 0px rgba(87, 31, 142, 0.4),
+    -45px 0px 0px 0px rgba(87, 31, 142, 0.3),
+    -50px 0px 0px 0px rgba(87, 31, 142, 0.2),
+    -55px 0px 0px 0px rgba(87, 31, 142, 0.1),
+    10px 0px 0px 0px rgba(87, 31, 142, 1),
+    15px 0px 0px 0px rgba(87, 31, 142, 0.9),
+    20px 0px 0px 0px rgba(87, 31, 142, 0.8),
+    25px 0px 0px 0px rgba(87, 31, 142, 0.7),
+    30px 0px 0px 0px rgba(87, 31, 142, 0.6),
+    35px 0px 0px 0px rgba(87, 31, 142, 0.5),
+    40px 0px 0px 0px rgba(87, 31, 142, 0.4),
+    45px 0px 0px 0px rgba(87, 31, 142, 0.3),
+    50px 0px 0px 0px rgba(87, 31, 142, 0.2),
+    55px 0px 0px 0px rgba(87, 31, 142, 0.1);
+  animation: lightMove 3s infinite ease-in-out;
+}
+
+@keyframes lightMove {
+  0% {
+    left: 0;
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    left: 100%;
+  }
+}

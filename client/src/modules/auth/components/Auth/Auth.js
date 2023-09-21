@@ -1,7 +1,8 @@
 import styles from "./Auth.module.css";
 
-import { Input, Button } from "../../../../view/ui";
-import { login, registration } from "../../actions/authActions";
+import { Input, Button, Alert } from "../../../../view/ui";
+
+import { useAuthActions } from "../../store/useAuthActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,21 +13,32 @@ const initState = {
 };
 
 const Auth = ({}) => {
+  const { error } = useSelector((state) => state.auth);
+
+  const { login, registration } = useAuthActions();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [authData, setAuthData] = useState(initState);
-
+  const [message, setMessage] = useState(null);
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setAuthData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const onLoginHandler = () => {
-    dispatch(login({ ...authData }));
+  const onLoginHandler = async () => {
+    const response = await login({ ...authData });
+    if ("error" in response) {
+      return;
+    }
     navigate("/manager");
   };
-  const onRegisterHandler = () => {
-    dispatch(registration({ ...authData }));
+  const onRegisterHandler = async () => {
+    const response = await registration({ ...authData });
+    console.log(response);
+    if ("error" in response) {
+      return;
+    }
+    setMessage(response.payload.message)
   };
 
   return (
@@ -54,7 +66,8 @@ const Auth = ({}) => {
         <Button onClick={onRegisterHandler}>Sin up</Button>
       </div>
 
-      <span className={styles.titleWrap}>grac</span>
+      {/* <span className={styles.titleWrap}>grac</span> */}
+      <Alert message={error || message} type={message ? "success" : null} />
     </div>
   );
 };

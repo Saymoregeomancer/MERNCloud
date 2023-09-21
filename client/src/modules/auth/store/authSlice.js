@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { login } from "../actions/authActions";
+import { login , registration } from "./authActions";
 
 const initialState = {
   isAuth: false,
@@ -23,13 +23,24 @@ const authSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload;
-        // state.error = action.error.message; // зберігаємо текст помилки в стейт
+        state.error = action.error.message;
+      })
+      .addCase(registration.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(registration.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isAuth = !!action.payload.token;
+      })
+      .addCase(registration.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
       });
   },
 });
 
-export const { setDiskSpace, setUsedSpace, setAvatar, setIsAuth, setLoguot } =
-  authSlice.actions;
+// export const {  } =
+//   authSlice.actions;
 
 export default authSlice.reducer;

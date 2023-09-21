@@ -1,36 +1,33 @@
 import styles from "./TableDashItem.module.css";
 import useMenuContext from "../../../../../utils/useMenuContext.js";
 import { processString } from "../../../utils/sting.utils.js";
-import { Popup, Favorite, File } from "../../../../../view/ui";
+import {
+  Popup,
+  Favorite,
+  File,
+  ContextMenu,
+  ContextMenuBtn,
+} from "../../../../../view/ui";
 import { formatBytes } from "../../../utils/byte.utils";
 import useFileServices from "../utils/useFileServices";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 
-import FileContextMenu from "../utils/fileContextMenu/fileContextMenu";
 import { useTableContext } from "../utils/useTableContext";
 
 const TableDashItem = ({ file }) => {
   const { isPremiumTable, isSharedTable } = useTableContext();
 
+  const { show, btnRef, menuRef, handleBtnClick } = useMenuContext();
   const { handleFile, handleSelectFile, getMenuButtons } = useFileServices(
     file,
     isPremiumTable,
-    isSharedTable
+    isSharedTable,
+    handleBtnClick
   );
-  const { show, btnRef, menuRef, handleBtnClick } = useMenuContext();
 
-  const [coordinates, setCoordinates] = useState({ clientX: 0, clientY: 0 });
-
-  const toggleModal = () => {
-    handleBtnClick();
-  };
-
-  const buttons = useMemo(() => {
-    return getMenuButtons(toggleModal);
-  }, [isPremiumTable, isSharedTable]);
+  const buttons = getMenuButtons(handleBtnClick);
 
   const handleRightClick = (event) => {
-    setCoordinates({ clientX: event.clientX, clientY: event.clientY });
     event.preventDefault();
     handleBtnClick();
   };
@@ -54,15 +51,13 @@ const TableDashItem = ({ file }) => {
         </div>
         <div className={styles.descrItem}>Only you</div>
       </div>
-      <div
-        className="z-50 fixed"
-        style={{
-          top: `${coordinates.clientY + 10}px`,
-          left: `${coordinates.clientX + 10}px`,
-        }}
-      >
-        <FileContextMenu menuRef={menuRef} show={show} buttons={buttons} />
-      </div>
+
+      <ContextMenu isShow={show} menuRef={menuRef}>
+        {buttons &&
+          buttons.map((btn) => {
+            return <ContextMenuBtn key={btn.title} btnConfig={btn} />;
+          })}
+      </ContextMenu>
     </div>
   );
 };

@@ -9,8 +9,12 @@ function App() {
 
   return (
     <div className="flex justify-between  py-3 px-2 h-full">
-      <NavigationsLayout>{isAuth && <Navigation />}</NavigationsLayout>
-      <AppRouter></AppRouter>
+      {isAuth && (
+        <NavigationsLayout>
+          <Navigation />
+        </NavigationsLayout>
+      )}
+      <AppRouter isAuth={isAuth}/>
     </div>
   );
 }

@@ -9,10 +9,9 @@ import {
 } from "./parts";
 import useFileServices from "../../utils/useFileServices";
 import useMenuContext from "../../../../../../utils/useMenuContext";
-import FileContextMenu from "../../utils/fileContextMenu/fileContextMenu";
 import { HiOutlineDotsVertical as Dots } from "react-icons/hi";
 import { useTableContext } from "../../utils/useTableContext";
-import { useMemo } from "react";
+import { ContextMenu, ContextMenuBtn } from "../../../../../../view/ui";
 
 const TableListBodyCell = ({ file }) => {
   const { isPremiumTable, isSharedTable } = useTableContext();
@@ -23,12 +22,11 @@ const TableListBodyCell = ({ file }) => {
     isSharedTable
   );
   const { show, btnRef, menuRef, handleBtnClick } = useMenuContext(false);
- 
-  
+
   const toggleModal = () => {
     handleBtnClick();
   };
-  const buttons = useMemo(()=> { return getMenuButtons(toggleModal)}, [isPremiumTable, isSharedTable])
+  const buttons = getMenuButtons(handleBtnClick);
   return (
     <div className={`${styles.cell} ${show ? styles.cellActive : ""}`}>
       <ListCheck />
@@ -50,7 +48,12 @@ const TableListBodyCell = ({ file }) => {
           <Dots size={20} />
         </div>
       </div>
-      <FileContextMenu menuRef={menuRef} show={show} buttons={buttons} />
+      <ContextMenu isShow={show} menuRef={menuRef}>
+        {buttons &&
+          buttons.map((btn) => {
+            return <ContextMenuBtn key={btn.title} btnConfig={btn} />;
+          })}
+      </ContextMenu>
     </div>
   );
 };

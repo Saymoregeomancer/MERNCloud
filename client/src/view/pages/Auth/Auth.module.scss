@@ -1,3 +1,99 @@
 .container {
-    @apply text-white flex justify-center w-full  py-3 px-2 h-full
+  @apply text-white flex justify-between w-full  pr-8  h-full rounded-md;
+  height: 97vh;
+  background: linear-gradient(
+    165deg,
+    rgba(87, 31, 142, 1) 0%,
+    rgba(8, 191, 166, 1) 100%
+  );
+  animation: 1s bgr linear infinite;
+}
+
+@keyframes bgr {
+  0% {
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 0% 100%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 100% 0%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+.sideTitle {
+  @apply text-2xl text-purpleButton mt-2;
+}
+.sideSubTitle {
+  @apply text-xl text-secondText mt-2 mx-6;
+}
+
+.sideFormWrap {
+  @apply w-full h-full flex mt-20;
+}
+.leftSideWrap {
+  @apply w-3/5 h-full flex items-center;
+}
+
+.leftSide {
+  @apply w-full h-full flex bg-2 rounded-md flex-col items-start p-3;
+}
+
+
+.descrWrap{
+    @apply w-full h-2/5 flex mt-20
+}
+
+.descrLoader {
+    @apply h-2/4
+}
+
+.descr{
+    @apply p-3
+}
+
+.descrTitle {
+    @apply text-purpleButton mt-3
+}
+.descrSubTitle {
+    @apply text-secondText mt-2
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.rightSide {
+  @apply h-full w-1/3 flex flex-col justify-around items-center bg-red-500 p-3 rounded-md;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.rightSideHeader{
+    @apply  flex w-full items-center
+}
+
+.rightSideHeaderLogo{
+    @apply w-1/3
+}
+
+.rightSideHeaderTitle{
+    @apply text-xl text-textIcon
+}
+
+
+.paragraph{
+    @apply  text-simplePurple text-lg
 }

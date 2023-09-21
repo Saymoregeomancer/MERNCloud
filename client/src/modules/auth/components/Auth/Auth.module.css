@@ -4,12 +4,12 @@
 }
 
 .inputWrap {
-    @apply mt-3 w-5/12 flex justify-center
+    @apply mt-3 w-7/12 flex justify-center
 }
 
 
 .buttonsGroup {
-    @apply flex w-5/12  mt-3 h-10 
+    @apply flex w-7/12  mt-3 h-10 
 }
 
 .titleWrap {

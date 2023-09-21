@@ -6,7 +6,7 @@ import FolderNavigation from "./components/FolderNavigation/FolderNavigation";
 import CreateFolder from "./components/CreateFolder/CreateFolder";
 import Preview from "./components/Preview/Preview";
 import FavFilesList from "./components/FavFilesList/FavFilesList";
-import DrugAndDrop from "./components/DrugAndDrop/DrugAndDrop";
+import DragAndDrop from "./components/DragAndDrop/DragAndDrop";
 import Search from "./components/Search/Search";
 import { useFilesAction } from "./store/files/useFileActions";
 import { usePreviewActions } from "./store/preview/usePreviewActions";
@@ -16,7 +16,7 @@ export {
   previewReducer,
   fileReducer,
   Search,
-  DrugAndDrop,
+  DragAndDrop,
   FavFilesList,
   Preview,
   Table,
