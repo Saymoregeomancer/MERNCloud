@@ -1,9 +1,13 @@
 import styles from "./Auth.module.css";
 
+import {
+  setCursorWait,
+  setCursorDefault,
+} from "../../../../utils/cursorChanger";
 import { Input, Button, Alert } from "../../../../view/ui";
 
 import { useAuthActions } from "../../store/useAuthActions";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +20,6 @@ const Auth = ({}) => {
   const { error } = useSelector((state) => state.auth);
 
   const { login, registration } = useAuthActions();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [authData, setAuthData] = useState(initState);
   const [message, setMessage] = useState(null);
@@ -26,19 +29,23 @@ const Auth = ({}) => {
   };
 
   const onLoginHandler = async () => {
+    setCursorWait();
     const response = await login({ ...authData });
     if ("error" in response) {
       return;
     }
+
     navigate("/manager");
+    setCursorDefault();
   };
   const onRegisterHandler = async () => {
+    setCursorWait();
     const response = await registration({ ...authData });
-    console.log(response);
     if ("error" in response) {
       return;
     }
-    setMessage(response.payload.message)
+    setMessage(response.payload.message);
+    setCursorDefault();
   };
 
   return (

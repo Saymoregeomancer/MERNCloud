@@ -5,7 +5,7 @@
   @apply flex justify-evenly h-24 items-center;
 }
 .userWrap {
-  @apply w-2/4;
+  @apply w-3/5;
 }
 .username {
   @apply text-secondText text-xs break-words;
@@ -14,7 +14,7 @@
   @apply p-1  rounded-full flex h-20 w-20  items-center justify-center;
 }
 .avatar {
-  @apply p-1  rounded-full flex bg-5 text-purpleText text-2xl h-20 w-20  items-center justify-center;
+  @apply p-1  rounded-full flex bg-5 text-purpleText text-2xl h-16 w-16  items-center justify-center;
 }
 .userIcon img {
   @apply rounded-full h-10 w-10 object-cover;

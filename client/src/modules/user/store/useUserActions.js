@@ -1,12 +1,12 @@
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-// import * as userReducer from "./userSlice";
+import * as userReducer from "./userSlice";
 import * as userActions from "./userActions";
 import { useMemo } from "react";
 
 const rootActions = {
   ...userActions,
-  //   ...userReducer,
+  ...userReducer,
 };
 
 export const useUserAction = () => {

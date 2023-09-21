@@ -9,7 +9,7 @@ const User = new Schema(
     avatar: { type: String },
     files: [{ type: ObjectId, ref: "File" }],
     SharedAccessLink: [{ type: ObjectId, ref: "SharedAccessLink" }],
-    isPremium: [{ type: Boolean, default: false }],
+    isPremium: { type: Boolean, default: false },
   },
   { versionKey: false }
 );

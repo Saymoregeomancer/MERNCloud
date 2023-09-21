@@ -1,7 +1,7 @@
 import { BiSearchAlt } from "react-icons/bi";
 import { useState } from "react";
 import styles from "./Search.module.css";
-
+import {setCursorWait , setCursorDefault} from '../../../../utils/cursorChanger'
 import { useFilesAction } from "../../store/files/useFileActions";
 
 const initialState = "";
@@ -14,8 +14,10 @@ const Search = ({}) => {
     setValue(e.target.value);
   };
   const handleSearch = () => {
+    setCursorWait()
     searchFiles(value);
     setValue(initialState);
+    setCursorDefault()
   };
 
   const handleKeyPress = (event) => {

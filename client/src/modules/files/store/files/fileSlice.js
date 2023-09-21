@@ -17,6 +17,7 @@ const filesSlice = createSlice({
     setView: (state, actions) => {
       state.view = actions.payload;
     },
+    resetFilesState: (state) => initialState,
     setSelect: (state, action) => {
       const { id } = action.payload;
       state.files = state.files.map((obj) => {
@@ -63,6 +64,6 @@ const filesSlice = createSlice({
   },
 });
 
-export const { setView, setSelect ,deleteFile } = filesSlice.actions;
+export const { setView, setSelect, deleteFile } = filesSlice.actions;
 
 export default filesSlice.reducer;

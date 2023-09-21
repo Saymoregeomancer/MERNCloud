@@ -1,22 +1,28 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { request } from "../../../utils/request";
-
-
+import { requestApiGet, requestApiPost } from "../../../utils/api/request.api";
 
 export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
-    const data = await request("auth/getUser", "GET");
-    return data;
-  });
+  try {
+    const response = await requestApiGet("auth/getUser");
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+});
 
-  
-  export const increasePlan = createAsyncThunk(
-    "user/increasePlan",
-    async (space, plan) => {
-      const data = await request("auth/increasePlan", "POST", null, {
+export const increasePlan = createAsyncThunk(
+  "user/increasePlan",
+  async (space, plan) => {
+    try {
+      const response = await requestApiPost("auth/increasePlan", {
         space: space,
         plan: plan,
       });
-      console.log(data);
-      return data;
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error.message);
     }
-  );
+  }
+);

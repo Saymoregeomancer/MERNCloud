@@ -4,6 +4,10 @@ import { useSelector } from "react-redux";
 import { Input, Button, Alert } from "../../../../../view/ui";
 import { requestApiPost } from "../../../../../utils/api/request.api";
 import { useFilesAction } from "../../../store/files/useFileActions";
+import {
+  setCursorWait,
+  setCursorDefault,
+} from "../../../../../utils/cursorChanger";
 
 const CreateFolderForm = ({ onHide }) => {
   const { fetchFiles } = useFilesAction();
@@ -22,6 +26,7 @@ const CreateFolderForm = ({ onHide }) => {
 
   const handleButtonClick = async () => {
     try {
+      setCursorWait();
       if (name === "") {
         setError("Empty input");
         return;
@@ -37,7 +42,9 @@ const CreateFolderForm = ({ onHide }) => {
       setName("");
       fetchFiles(currentDir === null ? null : currentDir._id);
       onHide();
+      setCursorDefault();
     } catch (error) {
+      setCursorDefault();
       setError(error.response.data.message);
       console.error(error);
     }

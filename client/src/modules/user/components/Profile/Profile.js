@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { convertToGb } from "../../utils/convertToGB";
 import { ProgresBar, Button, Popup } from "../../../../view/ui";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useUserAction } from "../../store/useUserActions";
 
 function copyToClipboard(value) {
   navigator.clipboard
@@ -17,8 +18,12 @@ function copyToClipboard(value) {
 }
 
 const Profile = () => {
-  const { diskSpace, usedSpace, isPremium, userId, avatar, email } =
-    useSelector((state) => state.user);
+  const { diskSpace, usedSpace, isPremium, avatar, email } = useSelector(
+    (state) => state.user
+  );
+
+  const { resetUserState } = useUserAction();
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -37,12 +42,14 @@ const Profile = () => {
           <div className={styles.avatar}>{email?.charAt(0).toUpperCase()}</div>
         )}
         <div className={styles.userWrap}>
-          <div className={styles.username}>{email}</div>
+          <div className={styles.username}>
+            {isPremium ? "You have" : email}
+          </div>
           {isPremium ? (
             <div className={styles.premium}>Premium</div>
           ) : (
             <div onClick={handlePremClick} className={styles.userbutton}>
-              <Button contained>prem</Button>
+              <Button contained>Get premium</Button>
             </div>
           )}
         </div>
@@ -52,12 +59,12 @@ const Profile = () => {
         <Popup description="Click For Copy">
           <div
             onClick={() => {
-              copyToClipboard(userId);
+              copyToClipboard(email);
             }}
             className={styles.userIdWrap}
           >
-            <span>Id: </span>
-            <div className={styles.userId}>{userId}</div>
+            <span>Email:</span>
+            <div className={styles.userId}>{email}</div>
           </div>
         </Popup>
       )}

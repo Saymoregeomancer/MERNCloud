@@ -1,11 +1,11 @@
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-// import * as authReducer from "./authSlice";
+import * as authReducer from "./authSlice";
 import * as authActions from "./authActions";
 import { useMemo } from "react";
 
 const rootActions = {
-//   ...authReducer,
+  ...authReducer,
     ...authActions,
 };
 

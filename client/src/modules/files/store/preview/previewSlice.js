@@ -16,6 +16,7 @@ const previewSlice = createSlice({
     setPreviewFile: (state, action) => {
       state.previewFile = action.payload;
     },
+    resetPreviewState: (state) => initialState,
   },
   extraReducers: (builder) => {
     builder

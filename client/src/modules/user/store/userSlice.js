@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUser , increasePlan } from "./userActions";
+import { fetchUser, increasePlan } from "./userActions";
 
 const initialState = {
   diskSpace: 0,
@@ -15,7 +15,9 @@ const initialState = {
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    resetUserState: (state) => initialState,
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchUser.pending, (state) => {
@@ -52,5 +54,7 @@ const userSlice = createSlice({
       });
   },
 });
+
+export const { resetUserState } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -19,8 +19,8 @@ const Manager = () => {
   const { fetchFiles } = useFilesAction();
 
   useEffect(() => {
-    fetchFiles();
     fetchUser();
+    fetchFiles();
   });
 
   return (
