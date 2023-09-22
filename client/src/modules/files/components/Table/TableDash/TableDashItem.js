@@ -1,16 +1,11 @@
 import styles from "./TableDashItem.module.css";
 import useMenuContext from "../../../../../utils/useMenuContext.js";
 import { processString } from "../../../utils/sting.utils.js";
-import {
-  Popup,
-  Favorite,
-  File,
-  ContextMenu,
-  ContextMenuBtn,
-} from "../../../../../view/ui";
+import { Popup, Favorite, File } from "../../../../../view/ui";
 import { formatBytes } from "../../../utils/byte.utils";
 import useFileServices from "../utils/useFileServices";
-import { useState, useMemo, useCallback } from "react";
+import FileContextMenu from "../utils/FileContextMenu";
+import FileShareModal from "../utils/FileShareModal";
 
 import { useTableContext } from "../utils/useTableContext";
 
@@ -18,12 +13,14 @@ const TableDashItem = ({ file }) => {
   const { isPremiumTable, isSharedTable } = useTableContext();
 
   const { show, btnRef, menuRef, handleBtnClick } = useMenuContext();
-  const { handleFile, handleSelectFile, getMenuButtons } = useFileServices(
-    file,
-    isPremiumTable,
-    isSharedTable,
-    handleBtnClick
-  );
+  const {
+    handleFile,
+    handleSelectFile,
+    getMenuButtons,
+    isOpenModal,
+    toogleModal,
+    handleShare,
+  } = useFileServices(file, isPremiumTable, isSharedTable);
 
   const buttons = getMenuButtons(handleBtnClick);
 
@@ -49,15 +46,14 @@ const TableDashItem = ({ file }) => {
         <div className={file.size > 0 ? styles.descrItem : "hidden"}>
           {formatBytes(file.size)}
         </div>
-        <div className={styles.descrItem}>Only you</div>
+        <div className={styles.descrItem}>{file.shared? 'Shared' : "Only u"}</div>
       </div>
-
-      <ContextMenu isShow={show} menuRef={menuRef}>
-        {buttons &&
-          buttons.map((btn) => {
-            return <ContextMenuBtn key={btn.title} btnConfig={btn} />;
-          })}
-      </ContextMenu>
+      <FileContextMenu isShow={show} menuRef={menuRef} buttons={buttons} />
+      <FileShareModal
+        showModal={isOpenModal}
+        onClose={toogleModal}
+        handleShare={handleShare}
+      />
     </div>
   );
 };

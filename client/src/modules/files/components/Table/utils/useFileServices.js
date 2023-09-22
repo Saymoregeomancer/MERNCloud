@@ -1,10 +1,11 @@
 import { usePreviewActions } from "../../../store/preview/usePreviewActions";
 import { useFilesAction } from "../../../store/files/useFileActions";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import {
   requestApiGet,
   requestApiDelete,
+  requestApiPost,
 } from "../../../../../utils/api/request.api";
 import {
   setCursorWait,
@@ -21,7 +22,8 @@ import { requestApiDownloadFile } from "../../../../../utils/api/requestsFile.ap
 
 const useFileServices = (file, isPrem = false, isShared = false) => {
   const { setPreviewFile, fetchPreview } = usePreviewActions();
-  const { fetchFiles, setSelect, deleteFile } = useFilesAction();
+  const { fetchFiles, setSelect, deleteFile, setShared } = useFilesAction();
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleFile = useCallback(() => {
     if (file.type !== "folder") {
@@ -75,15 +77,26 @@ const useFileServices = (file, isPrem = false, isShared = false) => {
     }
   }, [file]);
 
-  const handleShare = useCallback(async () => {
-    try {
-      setCursorWait();
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setCursorDefault();
-    }
-  }, [file]);
+  const handleShare = useCallback(
+    async (email) => {
+      try {
+        setCursorWait();
+        const body = {
+          email: email,
+          accessLink: file.accessLink,
+        };
+        const response = await requestApiPost("files/share", body);
+        setShared({ id: file._id });
+        setCursorDefault();
+      } catch (error) {
+        setCursorDefault();
+        console.error(error);
+      }
+    },
+    [file]
+  );
+
+  const toogleModal = () => setIsOpenModal(!isOpenModal);
 
   const getMenuButtons = useMemo(() => {
     return (afterButtonClickFuntion) => {
@@ -105,7 +118,7 @@ const useFileServices = (file, isPrem = false, isShared = false) => {
           title: "Share",
           icon: Share,
           onClick: () => {
-            handleShare();
+            toogleModal();
             if (afterButtonClickFuntion) {
               afterButtonClickFuntion();
             }
@@ -135,6 +148,8 @@ const useFileServices = (file, isPrem = false, isShared = false) => {
     handleDownload,
     handleShare,
     getMenuButtons,
+    isOpenModal,
+    toogleModal,
   };
 };
 

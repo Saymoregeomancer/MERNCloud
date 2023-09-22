@@ -1,10 +1,10 @@
 .wrap {
-  @apply bg-table h-28;
+  @apply bg-table h-28 ;
   animation: fade 0.2s;
 }
 
 .container {
-  @apply bg-table z-0 w-full h-full p-2 rounded-md;
+  @apply bg-table z-0 w-full h-full p-2  rounded-md;
 }
 
 .loader {

@@ -8,9 +8,7 @@ const useMenuContext = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // console.log(menuRef.current.childNodes)
-      // console.log(event.target)
-      // console.log(menuRef.current.contains(event.target))
+   
         if (
             menuRef.current &&
             !menuRef.current.contains(event.target) &&

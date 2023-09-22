@@ -1,6 +1,5 @@
 const DynamicComponent = ({ component, ...rest }) => {
-  const Component = component; // Назва компонента передається в пропсі
-  // console.log(component)
+  const Component = component; 
 
   return <Component {...rest} />;
 };

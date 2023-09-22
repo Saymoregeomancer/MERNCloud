@@ -301,6 +301,7 @@ class FileController {
       const { accessLink, email } = req.body;
 
       const userToShareFile = await User.findOne({ email });
+      const file = await File.findOne({ accessLink: accessLink });
 
       if (!userToShareFile) {
         throw new Error("User not found");
@@ -311,6 +312,10 @@ class FileController {
         { $push: { links: accessLink } },
         { upsert: true }
       );
+
+      file.shared = !file.shared;
+
+      await file.save();
 
       return res.status(200).json({ message: "The file has been sent" });
     } catch (e) {

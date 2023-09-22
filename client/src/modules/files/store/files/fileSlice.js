@@ -27,6 +27,15 @@ const filesSlice = createSlice({
         return obj;
       });
     },
+    setShared: (state, action) => {
+      const { id } = action.payload;
+      state.files = state.files.map((obj) => {
+        if (obj._id === id) {
+          return { ...obj, shared: !obj.shared };
+        }
+        return obj;
+      });
+    },
     deleteFile: (state, action) => {
       const { id } = action.payload;
       state.files = state.files.filter((file) => file._id !== id);
@@ -64,6 +73,6 @@ const filesSlice = createSlice({
   },
 });
 
-export const { setView, setSelect, deleteFile } = filesSlice.actions;
+export const { setView, setSelect, deleteFile,setShared,resetFilesState } = filesSlice.actions;
 
 export default filesSlice.reducer;

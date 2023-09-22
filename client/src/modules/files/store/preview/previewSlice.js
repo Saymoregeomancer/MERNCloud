@@ -39,6 +39,6 @@ const previewSlice = createSlice({
   },
 });
 
-export const { setPreviewFile } = previewSlice.actions;
+export const { setPreviewFile ,resetPreviewState} = previewSlice.actions;
 
 export default previewSlice.reducer;

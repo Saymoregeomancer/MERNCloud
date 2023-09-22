@@ -11,6 +11,7 @@ const File = new Schema(
     date: { type: Date, default: Date.now() },
     user: { type: ObjectId, ref: "User" },
     parent: { type: ObjectId, ref: "File" },
+    shared: { type: Boolean, default: false },
   },
   { versionKey: false }
 );

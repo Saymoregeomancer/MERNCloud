@@ -1,7 +1,7 @@
 import styles from "./ListMembers.module.css";
 
-const ListMembers = ({}) => {
-  return <div className={styles.members}>Only u</div>;
+const ListMembers = ({isShared= false}) => {
+  return <div className={styles.members}>{isShared? 'Shared' : "Only u"}</div>;
 };
 
 export default ListMembers;

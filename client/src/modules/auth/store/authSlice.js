@@ -42,7 +42,7 @@ const authSlice = createSlice({
   },
 });
 
-// export const {  } =
-//   authSlice.actions;
+export const { resetAuthState } =
+  authSlice.actions;
 
 export default authSlice.reducer;

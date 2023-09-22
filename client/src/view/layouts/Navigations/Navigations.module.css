@@ -1,13 +1,11 @@
-
-
 .container {
-    @apply w-2/12 bg-white text-black rounded-md py-3 pl-5 bg-3 text-secondText;
+  @apply w-2/12 bg-white text-black rounded-md py-3 pl-5 bg-3 text-secondText z-0;
 }
 
 .logoWrap {
-    @apply flex justify-center pr-5
+  @apply flex justify-center pr-5;
 }
 
 .logo {
-    @apply h-20 hover:cursor-pointer pb-3   
+  @apply h-20 hover:cursor-pointer pb-3;
 }
