@@ -42,7 +42,8 @@ const Skeleton = ({ type = "span", size = 1 }) => {
       );
       break;
   }
-  return element;
+
+  return element ;
 };
 
 export default Skeleton;

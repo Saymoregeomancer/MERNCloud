@@ -3,8 +3,8 @@
 }
 
 .outline {
-  @apply  border-2 border-purpleButtonInactive flex rounded-md items-center justify-center hover:cursor-pointer transition-colors w-full h-full
+  @apply  border-2 border-purpleButtonInactive flex rounded-md items-center justify-center hover:cursor-pointer transition-colors w-full h-full p-1
 }
 .contained {
-  @apply  bg-purpleButton  flex rounded-md items-center justify-center border-2 hover:cursor-pointer shadow-buttonMainInset transition-colors hover:bg-transparent hover:border-purpleButton hover:shadow-none w-full h-full;
+  @apply  bg-purpleButton  flex rounded-md items-center justify-center border-2 hover:cursor-pointer shadow-buttonMainInset transition-colors hover:bg-transparent hover:border-purpleButton hover:shadow-none w-full h-full p-1;
 }

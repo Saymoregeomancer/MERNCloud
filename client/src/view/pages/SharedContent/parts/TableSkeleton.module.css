@@ -1,0 +1,26 @@
+.container {
+  @apply w-full relative;
+}
+
+.cell {
+  @apply w-full flex justify-between opacity-25;
+}
+.wrap {
+  @apply w-1/4 p-1;
+}
+
+.premWrap {
+  @apply top-1/2 left-1/2 absolute -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-2 flex flex-col items-center justify-between;
+}
+
+.buttonWrap {
+  @apply w-full mt-4  text-purpleButton;
+}
+
+.title {
+  @apply text-secondText;
+}
+
+.icon {
+  @apply text-purpleButton;
+}

@@ -6,9 +6,9 @@ import {
   UsersStack,
 } from "../../../modules/user";
 import { Table, ViewSwitcher, Preview } from "../../../modules/files";
+import TableSkeleton from "./parts/TableSkeleton";
 
 import { useSelector } from "react-redux";
-
 import { useEffect } from "react";
 
 import { useUserAction } from "../../../modules/user";
@@ -32,7 +32,11 @@ const SharedContent = () => {
         {/* <ChangePlan />
         <UserSettings /> */}
         <Menu right={<ViewSwitcher />} />
-        <Table isShared={true} isPremium={isPremium} />
+        {isPremium ? (
+          <Table isShared={true} isPremium={isPremium} />
+        ) : (
+          <TableSkeleton />
+        )}
       </MainLayout>
       <SideBarLayout>
         <Profile />

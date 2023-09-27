@@ -1,11 +1,12 @@
+
 .span {
-  @apply w-full h-3 bg-3 rounded-sm my-1 overflow-hidden relative;
+  @apply w-full h-3 bg-3 rounded-sm my-1 overflow-hidden relative p-1  blur-sm;
 }
 .circle {
-  @apply bg-4 rounded-full my-1 overflow-hidden relative;
+  @apply bg-4 rounded-full my-1 overflow-hidden relative p-1  blur-sm;
 }
 .square {
-  @apply bg-4 rounded-md my-1 overflow-hidden relative;
+  @apply bg-4 rounded-md my-1 overflow-hidden relative p-1  blur-sm;
 }
 
 .light {
