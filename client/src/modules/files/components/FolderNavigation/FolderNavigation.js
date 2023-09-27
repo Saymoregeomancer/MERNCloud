@@ -5,7 +5,7 @@ import { MdArrowBack as Arrow } from "react-icons/md";
 import { processString } from "../../utils";
 import { useFilesAction } from "../../store/files/useFileActions";
 
-function pathGenerator(str) {
+function pathGenerator(str = null) {
   if (str === null) {
     return null;
   }

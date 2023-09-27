@@ -13,15 +13,20 @@ import {
 } from "../../../modules/files";
 
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const Manager = () => {
   const { fetchUser } = useUserAction();
-  const { fetchFiles } = useFilesAction();
+  const { fetchFiles , resetFilesState} = useFilesAction();
+  const { isPremium } = useSelector((state) => state.user);
 
   useEffect(() => {
     fetchUser();
     fetchFiles();
-  });
+    return ()=>{
+      resetFilesState()
+    }
+  },[isPremium]);
 
   return (
     <>
@@ -41,7 +46,7 @@ const Manager = () => {
           }
         />
         <FavFilesList />
-        <Table isPremium={true}/>
+        <Table isPremium={isPremium}/>
       </MainLayout>
       <SideBarLayout>
         <Profile />

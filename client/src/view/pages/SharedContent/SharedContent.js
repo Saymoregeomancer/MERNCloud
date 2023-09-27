@@ -1,11 +1,13 @@
-import { MainLayout, SideBarLayout , Menu} from "../../layouts";
+import { MainLayout, SideBarLayout, Menu } from "../../layouts";
 import {
   ChangePlan,
   Profile,
   UserSettings,
   UsersStack,
 } from "../../../modules/user";
-import { Table , ViewSwitcher , Preview } from "../../../modules/files";
+import { Table, ViewSwitcher, Preview } from "../../../modules/files";
+
+import { useSelector } from "react-redux";
 
 import { useEffect } from "react";
 
@@ -14,25 +16,28 @@ import { useFilesAction } from "../../../modules/files";
 
 const SharedContent = () => {
   const { fetchUser } = useUserAction();
-  const {fetchSharedFiles} = useFilesAction()
-
+  const { fetchSharedFiles, resetFilesState } = useFilesAction();
+  const { isPremium } = useSelector((state) => state.user);
   useEffect(() => {
     fetchUser();
-    fetchSharedFiles({isShared : true})
-  });
+    fetchSharedFiles();
+    return () => {
+      resetFilesState();
+    };
+  }, [isPremium]);
 
   return (
     <>
       <MainLayout>
         {/* <ChangePlan />
         <UserSettings /> */}
-        <Menu right={<ViewSwitcher/>}/>
-        <Table isShared={true} />
+        <Menu right={<ViewSwitcher />} />
+        <Table isShared={true} isPremium={isPremium} />
       </MainLayout>
       <SideBarLayout>
         <Profile />
         {/* <UsersStack /> */}
-        <Preview/>
+        <Preview />
       </SideBarLayout>
     </>
   );

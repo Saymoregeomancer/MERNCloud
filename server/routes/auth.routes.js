@@ -33,9 +33,10 @@ router.post(
           .json({ message: `User with email ${email} already exist` });
       }
       const hashPassword = await bcrypt.hash(password, 8);
-      const user = new User({ email, password: hashPassword });
+      const user = await new User({ email, password: hashPassword });
       await user.save();
       const pathUtils = PathUtils.createNewUserFolder(user.id)
+     
       const accessLink = new AccessLink({ links : [], user: user.id });
       await accessLink.save()
       await fileService.createDir(pathUtils);

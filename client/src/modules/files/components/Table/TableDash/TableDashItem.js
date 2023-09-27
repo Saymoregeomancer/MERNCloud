@@ -46,7 +46,11 @@ const TableDashItem = ({ file }) => {
         <div className={file.size > 0 ? styles.descrItem : "hidden"}>
           {formatBytes(file.size)}
         </div>
-        <div className={styles.descrItem}>{file.shared? 'Shared' : "Only u"}</div>
+        {!isSharedTable && (
+          <div className={styles.descrItem}>
+            {file.shared ? "Shared" : "Only u"}
+          </div>
+        )}
       </div>
       <FileContextMenu isShow={show} menuRef={menuRef} buttons={buttons} />
       <FileShareModal
