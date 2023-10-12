@@ -15,9 +15,13 @@ For the server:
 cd server
 npm install
 npm start
+```
 
+For the client:
+```bash
 cd client
 npm install
 npm start
 # or
 npm run build
+```
