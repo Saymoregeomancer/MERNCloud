@@ -5,9 +5,9 @@ This is a budget version of cloud storage. In this application, you can store al
 Це бюджетна версія хмарного сховища. У цьому додатку ви можете зберігати всі свої файли на сервері. Також реалізована можливість отримувати попередні перегляди файлів (наразі підтримуються зображення, аудіо та відео). Додаток дозволяє збільшити об'єм пам'яті на сервері, а також оформити преміум-підписку, яка, в свою чергу, дозволяє ділитися файлами (не папками) з іншими користувачами платформи, просто введіть email необхідного користувача в поле. Перегляд файлів, якими з вами поділилися, можливий тільки з преміум-підпискою.
 
 After executing the command:
-
+```bash
 git clone https://github.com/Saymoregeomancer/MERNCloud.git
-
+```
 You will have two folders: 'client' and 'server.' You need to navigate into each folder and install packages:
 
 For the server:
